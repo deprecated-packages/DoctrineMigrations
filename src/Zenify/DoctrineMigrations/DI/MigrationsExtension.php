@@ -39,11 +39,11 @@ class MigrationsExtension extends CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		$builder->addDefinition($this->prefix('consoleOutput'))
-			->setClass('Phc\DoctrineMigrations\OutputWriter');
+			->setClass('Zenify\DoctrineMigrations\OutputWriter');
 
 		Validators::assertField($config, 'dirs', 'list');
 		$configuration = $builder->addDefinition($this->prefix('configuration'))
-			->setClass('Phc\DoctrineMigrations\Configuration\Configuration')
+			->setClass('Zenify\DoctrineMigrations\Configuration\Configuration')
 			->addSetup('setMigrationsTableName', [$config['table']])
 			->addSetup('setMigrationsDirectory', [reset($config['dirs'])])
 			->addSetup('setMigrationsNamespace', [$config['namespace']]);
