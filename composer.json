@@ -1,0 +1,21 @@
+{
+	"name": "zenify/doctrine-migrations",
+	"description": "Implementation of Doctrine Migrations to Nette",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Tomáš Votruba",
+			"homepage": "http://tomasvotruba.cz"
+		}
+	],
+	"require": {
+		"php": ">=5.4",
+		"doctrine/migrations": "@dev",
+		"kdyby/console": "@dev"
+	},
+	"autoload": {
+		"psr-0": {
+			"Zenify\\": "src/"
+		}
+	}
+}
