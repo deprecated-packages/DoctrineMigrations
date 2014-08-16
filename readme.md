@@ -27,7 +27,7 @@ extensions:
 
 **config.neon** with default values
 
-```
+```yaml
 migrations:
 	table: doctrine_migrations # database table for applied migrations
 	dirs: # list of dirs to load migrations from
