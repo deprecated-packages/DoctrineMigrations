@@ -10,8 +10,8 @@
 	],
 	"require": {
 		"php": ">=5.4",
-		"doctrine/migrations": "@dev",
-		"kdyby/console": "@dev"
+		"doctrine/migrations": "dev-master",
+		"kdyby/console": "dev-master"
 	},
 	"autoload": {
 		"psr-0": {
