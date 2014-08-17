@@ -11,8 +11,19 @@ Tip: [Symfony bundle](http://symfony.com/doc/current/bundles/DoctrineMigrationsB
 
 The best way to install is using [Composer](http://getcomposer.org/).
 
+Add to your `composer.json`:
+
+```yaml
+"require": {
+	"doctrine/migrations": "@dev"
+	"zenify/doctrine-migrations": "@dev"
+}
+```
+
+and run:
+
 ```sh
-$ composer require zenify/doctrine-migrations:@dev
+$ composer update
 ```
 
 Register the extension in `config.neon`:
