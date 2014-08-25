@@ -9,7 +9,7 @@
 		}
 	],
 	"require": {
-		"php": ">=5.4",
+		"php": ">=5.3.3",
 		"doctrine/migrations": "dev-master#4256449",
 		"kdyby/console": "~2.3"
 	},

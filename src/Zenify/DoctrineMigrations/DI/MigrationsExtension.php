@@ -15,12 +15,12 @@ use Nette\Utils\Validators;
 class MigrationsExtension extends CompilerExtension
 {
 	/** @var array */
-	protected $defaults = [
+	protected $defaults = array(
 		'table' => 'doctrine_migrations',
-		'dirs' => ['%appDir%/../migrations'],
+		'dirs' => array('%appDir%/../migrations'),
 		'namespace' => 'Migrations',
 		'enabled' => FALSE
-	];
+    );
 
 
 	public function __construct()
@@ -44,20 +44,20 @@ class MigrationsExtension extends CompilerExtension
 		Validators::assertField($config, 'dirs', 'list');
 		$configuration = $builder->addDefinition($this->prefix('configuration'))
 			->setClass('Zenify\DoctrineMigrations\Configuration\Configuration')
-			->addSetup('setMigrationsTableName', [$config['table']])
-			->addSetup('setMigrationsDirectory', [reset($config['dirs'])])
-			->addSetup('setMigrationsNamespace', [$config['namespace']]);
+			->addSetup('setMigrationsTableName', array($config['table']))
+			->addSetup('setMigrationsDirectory', array(reset($config['dirs'])))
+			->addSetup('setMigrationsNamespace', array($config['namespace']));
 
 		$dirs = array_unique($config['dirs']);
 		foreach ($dirs as $dir) {
-			$configuration->addSetup('registerMigrationsFromDirectory', [$dir]);
+			$configuration->addSetup('registerMigrationsFromDirectory', array($dir));
 		}
 
 		foreach ($this->loadFromFile(__DIR__ . '/commands.neon') as $i => $class) {
 			$builder->addDefinition($this->prefix('command.' . $i))
 				->setClass($class)
 				->addTag(ConsoleExtension::COMMAND_TAG)
-				->addSetup('setMigrationConfiguration', [$configuration]);
+				->addSetup('setMigrationConfiguration', array($configuration));
 		}
 	}
 
