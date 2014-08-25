@@ -20,7 +20,7 @@ class MigrationsExtension extends CompilerExtension
 		'dirs' => array('%appDir%/../migrations'),
 		'namespace' => 'Migrations',
 		'enabled' => FALSE
-    );
+	);
 
 
 	public function __construct()
