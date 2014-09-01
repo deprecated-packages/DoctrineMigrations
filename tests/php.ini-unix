@@ -1,0 +1,4 @@
+[PHP]
+extension=json.so
+extension=pdo.so
+extension=pdo_sqlite.so
