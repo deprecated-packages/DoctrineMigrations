@@ -1,9 +1,12 @@
 # Zenify/DoctrineMigrations
 
+[![Build Status](https://travis-ci.org/Zenify/DoctrineMigrations.svg?branch=master)](https://travis-ci.org/Zenify/DoctrineMigrations)
+[![Downloads this Month](https://img.shields.io/packagist/dm/zenify/doctrine-migrations.svg)](https://packagist.org/packages/zenify/doctrine-migrations)
+
 
 Implementation of [Doctrine\Migrations](http://docs.doctrine-project.org/projects/doctrine-migrations/en/latest/) to Nette.
 
-Tip: [Symfony bundle](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html) is more clear to read. 
+Tip: [Symfony bundle](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html) is more clear to read than Doctrine doc.
 
 
 
