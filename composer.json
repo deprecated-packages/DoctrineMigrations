@@ -9,8 +9,21 @@
 		}
 	],
 	"require": {
-		"doctrine/migrations": "dev-master#4256449",
+		"doctrine/migrations": "dev-master#1a9dffa64e",
 		"kdyby/console": "~2.3"
+	},
+	"require-dev": {
+        "kdyby/doctrine": "~2.0",
+		"nette/bootstrap": "~2.0",
+		"nette/di": "~2.0",
+		"nette/http": "~2.0",
+		"nette/mail": "~2.0",
+		"nette/robot-loader": "~2.0",
+		"nette/safe-stream": "~2.0",
+		"nette/security": "~2.0",
+		"nette/utils": "~2.0",
+		"nette/tester": "~1.2",
+		"tracy/tracy": "~2.0"
 	},
 	"autoload": {
 		"psr-0": {
