@@ -9,6 +9,7 @@ namespace Zenify\DoctrineMigrations\DI;
 
 use Kdyby\Console\DI\ConsoleExtension;
 use Nette\DI\CompilerExtension;
+use Nette\Utils\AssertionException;
 use Nette\Utils\Validators;
 
 
@@ -35,13 +36,13 @@ class MigrationsExtension extends CompilerExtension
 		if ($config['enabled'] === FALSE) {
 			return;
 		}
+		$this->validateConfig($config);
 
 		$builder = $this->getContainerBuilder();
 
 		$builder->addDefinition($this->prefix('consoleOutput'))
 			->setClass('Zenify\DoctrineMigrations\OutputWriter');
 
-		Validators::assertField($config, 'dirs', 'list');
 		$configuration = $builder->addDefinition($this->prefix('configuration'))
 			->setClass('Zenify\DoctrineMigrations\Configuration\Configuration')
 			->addSetup('setMigrationsTableName', array($config['table']))
@@ -59,6 +60,18 @@ class MigrationsExtension extends CompilerExtension
 				->addTag(ConsoleExtension::COMMAND_TAG)
 				->addSetup('setMigrationConfiguration', array($configuration));
 		}
+	}
+
+
+	/**
+	 * @param array $config
+	 * @throws AssertionException
+	 */
+	private function validateConfig($config)
+	{
+		Validators::assertField($config, 'table', 'string');
+		Validators::assertField($config, 'dirs', 'list');
+		Validators::assertField($config, 'namespace', 'string');
 	}
 
 }
