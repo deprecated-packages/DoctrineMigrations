@@ -10,7 +10,7 @@
 	],
 	"require": {
 		"doctrine/migrations": "dev-master#1a9dffa64e",
-		"kdyby/console": "~2.3"
+		"kdyby/console": "~2.0"
 	},
 	"require-dev": {
         "kdyby/doctrine": "~2.0",
