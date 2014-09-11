@@ -49,6 +49,7 @@ migrations:
 		- %appDir%/../migrations # first dir is used for generating migrations
 	namespace: Migrations # namespace of migration classes
 	enabled: FALSE # cli based loading; set TRUE to force loading in non-cli
+	codingStandard: tabs # or "spaces", cs for generated classes
 ```
 
 
@@ -83,3 +84,9 @@ class Version20140801152432 extends AbstractMigration
 
 }
 ```
+
+
+### Customize coding standard
+
+Files with migrations respects [PGS-2](php-guidelines.github.io/pgs-2/), oppose to origin [PSR-2](http://www.php-fig.org/psr/psr-2/).
+That means you can set both tabs or spaces as coding standard for generated migrations classes.

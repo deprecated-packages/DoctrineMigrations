@@ -17,8 +17,8 @@ use Nette\DI\Container;
 
 class Configuration extends Doctrine\DBAL\Migrations\Configuration\Configuration
 {
-	/** @var Container */
-	private $container;
+	/** @var string */
+	protected $cs;
 
 
 	public function __construct(Connection $connection, OutputWriter $outputWriter, Container $container)
@@ -53,6 +53,24 @@ class Configuration extends Doctrine\DBAL\Migrations\Configuration\Configuration
 		$version = parent::getVersion($version);
 		$this->container->callInjects($version->getMigration());
 		return $version;
+	}
+
+
+	/**
+	 * @param string $cs
+	 */
+	public function setCs($cs)
+	{
+		$this->cs = $cs;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getCs()
+	{
+		return $this->cs;
 	}
 
 }

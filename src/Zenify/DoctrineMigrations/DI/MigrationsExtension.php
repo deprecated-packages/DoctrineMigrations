@@ -15,12 +15,15 @@ use Nette\Utils\Validators;
 
 class MigrationsExtension extends CompilerExtension
 {
+	const CS_TABS = 'tabs';
+
 	/** @var array */
 	protected $defaults = array(
 		'table' => 'doctrine_migrations',
 		'dirs' => array('%appDir%/../migrations'),
 		'namespace' => 'Migrations',
-		'enabled' => FALSE
+		'enabled' => FALSE,
+		'codingStandard' => self::CS_TABS # or "spaces"
 	);
 
 
@@ -47,7 +50,8 @@ class MigrationsExtension extends CompilerExtension
 			->setClass('Zenify\DoctrineMigrations\Configuration\Configuration')
 			->addSetup('setMigrationsTableName', array($config['table']))
 			->addSetup('setMigrationsDirectory', array(reset($config['dirs'])))
-			->addSetup('setMigrationsNamespace', array($config['namespace']));
+			->addSetup('setMigrationsNamespace', array($config['namespace']))
+			->addSetup('setCs', array($config['codingStandard']));
 
 		$dirs = array_unique($config['dirs']);
 		foreach ($dirs as $dir) {
@@ -72,6 +76,7 @@ class MigrationsExtension extends CompilerExtension
 		Validators::assertField($config, 'table', 'string');
 		Validators::assertField($config, 'dirs', 'list');
 		Validators::assertField($config, 'namespace', 'string');
+		Validators::assertField($config, 'codingStandard', 'string');
 	}
 
 }
