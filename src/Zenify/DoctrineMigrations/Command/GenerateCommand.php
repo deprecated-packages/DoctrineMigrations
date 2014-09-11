@@ -9,7 +9,8 @@ namespace Zenify\DoctrineMigrations\Command;
 
 use Doctrine;
 use Symfony\Component\Console\Input\InputInterface;
-use Zenify\DoctrineMigrations\Configuration\Configuration;
+use Doctrine\DBAL\Migrations\Configuration\Configuration;
+use Zenify;
 use Zenify\DoctrineMigrations\DI\MigrationsExtension;
 
 
@@ -27,6 +28,7 @@ class GenerateCommand extends Doctrine\DBAL\Migrations\Tools\Console\Command\Gen
 	protected function generateMigration(Configuration $configuration, InputInterface $input, $version, $up = NULL, $down = NULL)
 	{
 		$path = parent::generateMigration($configuration, $input, $version, $up, $down);
+		/** @var Zenify\DoctrineMigrations\Configuration\Configuration $configuration */
 		if ($configuration->getCs() === MigrationsExtension::CS_TABS) {
 			$code = file_get_contents($path);
 			$code = preg_replace("/ {4}/","\t", $code);
