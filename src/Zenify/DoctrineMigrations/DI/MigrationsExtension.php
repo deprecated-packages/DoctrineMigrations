@@ -67,7 +67,7 @@ class MigrationsExtension extends CompilerExtension
 	 * @param array $config
 	 * @throws AssertionException
 	 */
-	private function validateConfig($config)
+	protected function validateConfig($config)
 	{
 		Validators::assertField($config, 'table', 'string');
 		Validators::assertField($config, 'dirs', 'list');
