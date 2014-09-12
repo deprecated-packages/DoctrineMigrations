@@ -39,7 +39,7 @@ class MigrationsExtension extends CompilerExtension
 		if ($config['enabled'] === FALSE) {
 			return;
 		}
-		$this->validateConfig($config);
+		$this->validateConfigTypes($config);
 
 		$builder = $this->getContainerBuilder();
 
@@ -68,10 +68,9 @@ class MigrationsExtension extends CompilerExtension
 
 
 	/**
-	 * @param array $config
 	 * @throws AssertionException
 	 */
-	protected function validateConfig($config)
+	protected function validateConfigTypes(array $config)
 	{
 		Validators::assertField($config, 'table', 'string');
 		Validators::assertField($config, 'dirs', 'list');
