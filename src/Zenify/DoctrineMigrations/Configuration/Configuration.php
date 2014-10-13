@@ -17,7 +17,10 @@ use Nette\DI\Container;
 
 class Configuration extends Doctrine\DBAL\Migrations\Configuration\Configuration
 {
-	/** @var string */
+
+	/**
+	 * @var string
+	 */
 	protected $cs;
 
 

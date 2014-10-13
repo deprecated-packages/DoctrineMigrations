@@ -13,7 +13,10 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 class OutputWriter extends Doctrine\DBAL\Migrations\OutputWriter
 {
-	/** @var ConsoleOutput */
+
+	/**
+	 * @var ConsoleOutput
+	 */
 	private $consoleOutput;
 
 

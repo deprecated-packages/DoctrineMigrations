@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Test: Zenify\DoctrineMigrations\Extension.
- *
- * @testCase
- */
-
 namespace ZenifyTests\DoctrineMigrations;
 
 use Nette;
@@ -19,7 +13,10 @@ $container = require_once __DIR__ . '/../bootstrap.php';
 
 class ExtensionTest extends TestCase
 {
-	/** @var Nette\DI\Container */
+
+	/**
+	 * @var Nette\DI\Container
+	 */
 	private $container;
 
 
@@ -31,11 +28,15 @@ class ExtensionTest extends TestCase
 
 	public function testExtension()
 	{
-		$configuration = $this->container->getByType('Zenify\DoctrineMigrations\Configuration\Configuration');
-		Assert::type('Zenify\DoctrineMigrations\Configuration\Configuration', $configuration);
+		Assert::type(
+			'Zenify\DoctrineMigrations\Configuration\Configuration',
+			$this->container->getByType('Zenify\DoctrineMigrations\Configuration\Configuration')
+		);
 
-		$outputWriter = $this->container->getByType('Zenify\DoctrineMigrations\OutputWriter');
-		Assert::type('Zenify\DoctrineMigrations\OutputWriter', $outputWriter);
+		Assert::type(
+			'Zenify\DoctrineMigrations\OutputWriter',
+			$this->container->getByType('Zenify\DoctrineMigrations\OutputWriter')
+		);
 	}
 
 }

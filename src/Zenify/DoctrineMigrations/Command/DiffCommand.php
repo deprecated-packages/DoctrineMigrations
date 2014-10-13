@@ -40,7 +40,7 @@ class DiffCommand extends Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCom
 
 			$path = $fileName($version);
 			$code = file_get_contents($path);
-			$code = preg_replace("/ {4}/","\t", $code);
+			$code = preg_replace("/ {4}/", "\t", $code);
 			file_put_contents($path, $code);
 		}
 	}

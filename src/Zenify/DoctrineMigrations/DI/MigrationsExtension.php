@@ -15,9 +15,12 @@ use Nette\Utils\Validators;
 
 class MigrationsExtension extends CompilerExtension
 {
+
 	const CS_TABS = 'tabs';
 
-	/** @var array */
+	/**
+	 * @var array
+	 */
 	protected $defaults = array(
 		'table' => 'doctrine_migrations',
 		'dirs' => array('%appDir%/../migrations'),
