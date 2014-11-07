@@ -24,8 +24,7 @@
 		"nette/utils": "~2.0",
 		"nette/tester": "~1.2",
 		"tracy/tracy": "~2.0",
-        "zenify/coding-standard": "~0.1",
-        "squizlabs/php_codesniffer": "2.0.0RC2",
+        "zenify/coding-standard": "~1.0",
         "jakub-onderka/php-parallel-lint": "~0.8"
     },
 	"autoload": {
