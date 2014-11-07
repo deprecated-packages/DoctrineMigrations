@@ -13,7 +13,7 @@
 		"kdyby/console": "~2.0"
 	},
 	"require-dev": {
-        "kdyby/doctrine": "~2.0",
+		"kdyby/doctrine": "~2.0",
 		"nette/bootstrap": "~2.0",
 		"nette/di": "~2.0",
 		"nette/http": "~2.0",
@@ -24,9 +24,9 @@
 		"nette/utils": "~2.0",
 		"nette/tester": "~1.2",
 		"tracy/tracy": "~2.0",
-        "zenify/coding-standard": "~1.0",
-        "jakub-onderka/php-parallel-lint": "~0.8"
-    },
+		"zenify/coding-standard": "~1.0",
+		"jakub-onderka/php-parallel-lint": "~0.8"
+	},
 	"autoload": {
 		"psr-0": {
 			"Zenify\\": "src/"
