@@ -26,8 +26,8 @@
 		"jakub-onderka/php-parallel-lint": "~0.8"
 	},
 	"autoload": {
-		"psr-0": {
-			"Zenify\\": "src/"
+		"psr-4": {
+			"Zenify\\DoctrineMigrations\\": "src/"
 		}
 	}
 }
