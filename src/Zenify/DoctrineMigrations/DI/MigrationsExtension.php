@@ -21,13 +21,13 @@ class MigrationsExtension extends CompilerExtension
 	/**
 	 * @var array
 	 */
-	protected $defaults = array(
+	private $defaults = [
 		'table' => 'doctrine_migrations',
-		'dirs' => array('%appDir%/../migrations'),
+		'dirs' => ['%appDir%/../migrations'],
 		'namespace' => 'Migrations',
 		'enabled' => FALSE,
 		'codingStandard' => self::CS_TABS # or "spaces"
-	);
+	];
 
 
 	public function __construct()
@@ -51,21 +51,21 @@ class MigrationsExtension extends CompilerExtension
 
 		$configuration = $builder->addDefinition($this->prefix('configuration'))
 			->setClass('Zenify\DoctrineMigrations\Configuration\Configuration')
-			->addSetup('setMigrationsTableName', array($config['table']))
-			->addSetup('setMigrationsDirectory', array(reset($config['dirs'])))
-			->addSetup('setMigrationsNamespace', array($config['namespace']))
-			->addSetup('setCs', array($config['codingStandard']));
+			->addSetup('setMigrationsTableName', [$config['table']])
+			->addSetup('setMigrationsDirectory', [reset($config['dirs'])])
+			->addSetup('setMigrationsNamespace', [$config['namespace']])
+			->addSetup('setCs', [$config['codingStandard']]);
 
 		$dirs = array_unique($config['dirs']);
 		foreach ($dirs as $dir) {
-			$configuration->addSetup('registerMigrationsFromDirectory', array($dir));
+			$configuration->addSetup('registerMigrationsFromDirectory', [$dir]);
 		}
 
 		foreach ($this->loadFromFile(__DIR__ . '/commands.neon') as $i => $class) {
 			$builder->addDefinition($this->prefix('command.' . $i))
 				->setClass($class)
 				->addTag(ConsoleExtension::COMMAND_TAG)
-				->addSetup('setMigrationConfiguration', array($configuration));
+				->addSetup('setMigrationConfiguration', [$configuration]);
 		}
 	}
 

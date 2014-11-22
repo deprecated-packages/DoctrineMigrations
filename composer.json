@@ -3,12 +3,10 @@
 	"description": "Implementation of Doctrine Migrations to Nette",
 	"license": "MIT",
 	"authors": [
-		{
-			"name": "Tomáš Votruba",
-			"homepage": "http://tomasvotruba.cz"
-		}
+		{ "name": "Tomáš Votruba", "homepage": "http://tomasvotruba.cz" }
 	],
 	"require": {
+		"php": ">=5.4",
 		"doctrine/migrations": "dev-master#1a9dffa64e",
 		"kdyby/console": "~2.0"
 	},
