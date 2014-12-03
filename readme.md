@@ -1,8 +1,8 @@
 # Zenify/DoctrineMigrations
 
-[![Build Status](https://travis-ci.org/Zenify/DoctrineMigrations.svg?branch=master)](https://travis-ci.org/Zenify/DoctrineMigrations)
-[![Downloads this Month](https://img.shields.io/packagist/dm/zenify/doctrine-migrations.svg)](https://packagist.org/packages/zenify/doctrine-migrations)
-[![Latest stable](https://img.shields.io/packagist/v/zenify/doctrine-migrations.svg)](https://packagist.org/packages/zenify/doctrine-migrations)
+[![Build Status](https://img.shields.io/travis/Zenify/DoctrineMigrations.svg?style=flat-square)](https://travis-ci.org/Zenify/DoctrineMigrations)
+[![Downloads this Month](https://img.shields.io/packagist/dm/zenify/doctrine-migrations.svg?style=flat-square)](https://packagist.org/packages/zenify/doctrine-migrations)
+[![Latest stable](https://img.shields.io/packagist/v/zenify/doctrine-migrations.svg?style=flat-square)](https://packagist.org/packages/zenify/doctrine-migrations)
 
 
 Implementation of [Doctrine\Migrations](http://docs.doctrine-project.org/projects/doctrine-migrations/en/latest/) to Nette.
