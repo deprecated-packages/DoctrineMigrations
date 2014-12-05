@@ -39,9 +39,15 @@ class MigrationsExtension extends CompilerExtension
 	public function loadConfiguration()
 	{
 		$config = $this->getConfig($this->defaults);
+		
 		if ($config['enabled'] === FALSE) {
 			return;
 		}
+		
+		if(count($config['dirs']) > 1) {
+			unset($config['dirs'][0]);
+		}
+		
 		$this->validateConfigTypes($config);
 
 		$builder = $this->getContainerBuilder();
