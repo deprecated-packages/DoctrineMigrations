@@ -44,6 +44,21 @@ migrations:
 ## Features
 
 
+### Multiple directories
+
+In case you have plenty of migrations and you want to store them in another directory, just add them to `dirs`.
+
+Only the first one (here `%appDir%/../migrations`) will be used to create migrations from command line. 
+
+```yaml
+migrations:
+	dirs:
+		- %appDir%/../migrations
+		- %appDir%/../migrations/2013
+		- %appDir%/../migrations/2012
+```
+
+
 ### Injected migrations
 
 ```php
