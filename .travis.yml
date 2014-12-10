@@ -19,8 +19,8 @@ before_script:
   # php linter
   - vendor/bin/parallel-lint -e php,phpt --exclude vendor .
   # php code sniffer
-  - vendor/bin/phpcs src --standard vendor/zenify/coding-standard/src/ZenifyCodingStandard/code-sniffer-ruleset.xml
-  - vendor/bin/phpcs tests/ZenifyTests/DoctrineMigrations --standard vendor/zenify/coding-standard/src/ZenifyCodingStandard/code-sniffer-ruleset.xml
+  - vendor/bin/phpcs src --standard=vendor/zenify/coding-standard/src/ZenifyCodingStandard/code-sniffer-ruleset.xml
+  - vendor/bin/phpcs tests/ZenifyTests/DoctrineMigrations --standard=vendor/zenify/coding-standard/src/ZenifyCodingStandard/code-sniffer-ruleset.xml
 
 script:
   - vendor/bin/tester -c tests/php.ini-unix tests -s
