@@ -25,7 +25,7 @@ class MigrationsExtension extends CompilerExtension
 	 */
 	private $defaults = [
 		'table' => 'doctrine_migrations',
-		'dirs' => ['%appDir%/../migrations'],
+		'dirs' => [],
 		'namespace' => 'Migrations',
 		'enabled' => FALSE,
 		'codingStandard' => self::CS_TABS # or "spaces"
@@ -45,6 +45,10 @@ class MigrationsExtension extends CompilerExtension
 			return;
 		}
 		$this->validateConfigTypes($config);
+
+		if (count($config['dirs']) === 0) {
+			$config['dirs'] = ['%appDir%/../migrations'];
+		}
 
 		$builder = $this->getContainerBuilder();
 
