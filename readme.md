@@ -12,10 +12,9 @@ Tip: [Symfony bundle](http://symfony.com/doc/current/bundles/DoctrineMigrationsB
 
 ## Installation
 
-Install latest version via Composer:
+Install the latest version via Composer:
 
 ```sh
-$ composer require doctrine/migrations:@dev
 $ composer require zenify/doctrine-migrations
 ```
 
