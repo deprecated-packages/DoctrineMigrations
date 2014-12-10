@@ -11,6 +11,8 @@ use Kdyby\Console\DI\ConsoleExtension;
 use Nette\DI\CompilerExtension;
 use Nette\Utils\AssertionException;
 use Nette\Utils\Validators;
+use Zenify\DoctrineMigrations\Configuration\Configuration;
+use Zenify\DoctrineMigrations\OutputWriter;
 
 
 class MigrationsExtension extends CompilerExtension
@@ -47,10 +49,10 @@ class MigrationsExtension extends CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		$builder->addDefinition($this->prefix('consoleOutput'))
-			->setClass('Zenify\DoctrineMigrations\OutputWriter');
+			->setClass(OutputWriter::class);
 
 		$configuration = $builder->addDefinition($this->prefix('configuration'))
-			->setClass('Zenify\DoctrineMigrations\Configuration\Configuration')
+			->setClass(Configuration::class)
 			->addSetup('setMigrationsTableName', [$config['table']])
 			->addSetup('setMigrationsDirectory', [reset($config['dirs'])])
 			->addSetup('setMigrationsNamespace', [$config['namespace']])
@@ -73,7 +75,7 @@ class MigrationsExtension extends CompilerExtension
 	/**
 	 * @throws AssertionException
 	 */
-	protected function validateConfigTypes(array $config)
+	private function validateConfigTypes(array $config)
 	{
 		Validators::assertField($config, 'table', 'string');
 		Validators::assertField($config, 'dirs', 'list');

@@ -1,33 +1,22 @@
 # Zenify/DoctrineMigrations
 
 [![Build Status](https://img.shields.io/travis/Zenify/DoctrineMigrations.svg?style=flat-square)](https://travis-ci.org/Zenify/DoctrineMigrations)
+[![Quality Score](https://img.shields.io/scrutinizer/g/Zenify/DoctrineMigrations.svg?style=flat-square)](https://scrutinizer-ci.com/g/Zenify/DoctrineMigrations)
 [![Downloads this Month](https://img.shields.io/packagist/dm/zenify/doctrine-migrations.svg?style=flat-square)](https://packagist.org/packages/zenify/doctrine-migrations)
 [![Latest stable](https://img.shields.io/packagist/v/zenify/doctrine-migrations.svg?style=flat-square)](https://packagist.org/packages/zenify/doctrine-migrations)
 
-
 Implementation of [Doctrine\Migrations](http://docs.doctrine-project.org/projects/doctrine-migrations/en/latest/) to Nette.
 
-Tip: [Symfony bundle](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html) is more clear to read than Doctrine doc.
-
+Tip: [Symfony bundle](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html) is easier to understand Migrations than via Doctrine doc.
 
 
 ## Installation
 
-The best way to install is using [Composer](http://getcomposer.org/).
-
-Add to your `composer.json`:
-
-```yaml
-"require": {
-	"doctrine/migrations": "@dev"
-	"zenify/doctrine-migrations": "@dev"
-}
-```
-
-and run:
+Install latest version via Composer:
 
 ```sh
-$ composer update
+$ composer require doctrine/migrations:@dev
+$ composer require zenify/doctrine-migrations
 ```
 
 Register the extension in `config.neon`:
@@ -64,9 +53,10 @@ namespace Migrations;
 
 class Version20140801152432 extends AbstractMigration
 {
+
 	/**
 	 * @inject
-	 * @var \Kdyby\Doctrine\EntityManager
+	 * @var Doctrine\ORM\EntityManager
 	 */
 	public $em;
 
@@ -76,7 +66,6 @@ class Version20140801152432 extends AbstractMigration
 		$product = new Product;
 		$product->setName('Chips without fish')
 		$this->em->persist(product);
-
 		$this->em->flush();
 	}
 
