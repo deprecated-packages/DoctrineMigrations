@@ -46,11 +46,11 @@ class MigrationsExtension extends CompilerExtension
 		}
 		$this->validateConfigTypes($config);
 
-		if (count($config['dirs']) === 0) {
-			$config['dirs'] = ['%appDir%/../migrations'];
-		}
-
 		$builder = $this->getContainerBuilder();
+
+		if (count($config['dirs']) === 0) {
+			$config['dirs'] = [$builder->expand('%appDir%/../migrations')];
+		}
 
 		$builder->addDefinition($this->prefix('consoleOutput'))
 			->setClass(OutputWriter::class);
