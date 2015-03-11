@@ -3,23 +3,19 @@ language: php
 php:
   - 5.5
   - 5.6
-
-before_install:
-  - composer self-update
+  - 7.O
+  - hhvm
 
 install:
+  - composer create-project --prefer-source --dev --no-interaction zenify/ci vendor/ci @dev
+  - . vendor/ci/travis/coverage-init.sh
   - composer install --prefer-source
 
 before_script:
-  # php linter
-  - vendor/bin/parallel-lint -e php --exclude vendor .
-  # php code sniffer
-  - vendor/bin/phpcs src tests --standard=vendor/zenify/coding-standard/src/ZenifyCodingStandard/code-sniffer-ruleset.xml
+  - . vendor/ci/travis/static-analysis.sh
 
 script:
-  - vendor/bin/phpunit --coverage-clover=coverage.clover
+  - phpunit $PHPUNIT_FLAGS
 
 after_script:
-  # move code coverage
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  - . vendor/ci/travis/coverage-send.sh
