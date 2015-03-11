@@ -13,16 +13,26 @@ Tip: [Symfony bundle](http://symfony.com/doc/current/bundles/DoctrineMigrationsB
 
 ## Installation
 
-Install the latest version via composer:
+Add to your `composer.json`:
 
-```sh
-$ composer require zenify/doctrine-migrations
+```json
+"require": {
+    "doctrine/migrations": "@dev",
+    "zenify/doctrine-migrations": "~2.0"
+}
 ```
 
-Register extension in `config.neon`:
+and run `composer update`.
+
+
+*This is due to [doctrine/migrations](https://github.com/doctrine/migrations), that hasn't been tagged for a long time.*
+
+
+Register extensions in `config.neon`:
 
 ```yaml
 extensions:
+	- Kdyby\Console\DI\ConsoleExtension
 	migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
 ```
 
