@@ -61,7 +61,7 @@ migrations:
 
 ## Usage
 
-Open you CLI and run command:
+Open your CLI and run command:
 
 ```sh
 php www/index.php
