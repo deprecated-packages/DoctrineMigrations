@@ -8,10 +8,8 @@
 
 Implementation of [Doctrine\Migrations](http://docs.doctrine-project.org/projects/doctrine-migrations/en/latest/) to Nette.
 
-Tip: [Symfony bundle](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html) is easier to understand Migrations than via Doctrine doc.
 
-
-## Installation
+## Install
 
 Add to your `composer.json`:
 
@@ -28,7 +26,7 @@ and run `composer update`.
 *This is due to [doctrine/migrations](https://github.com/doctrine/migrations), that hasn't been tagged for a long time.*
 
 
-Register extensions in `config.neon` (includes [Kdyby/Doctrine](https://github.com/kdyby/doctrine)):
+Register extensions in `config.neon` (includes [Kdyby/Doctrine](https://github.com/kdyby/doctrine) configuration):
 
 ```yaml
 extensions:
@@ -38,7 +36,6 @@ extensions:
     doctrine: Kdyby\Doctrine\DI\OrmExtension
     migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
 
-# Kdyby\Doctrine configuration
 doctrine:
 	host: localhost
 	user: root
@@ -49,7 +46,7 @@ doctrine:
 
 ## Configuration
 
-**config.neon** with default values
+`config.neon` with default values
 
 ```yaml
 migrations:
@@ -60,6 +57,35 @@ migrations:
 	enabled: FALSE # cli based loading; set TRUE to force loading in non-cli
 	codingStandard: tabs # or "spaces", cs for generated classes
 ```
+
+
+## Usage
+
+Open you CLI and run command:
+
+```sh
+php www/index.php
+```
+
+And then you should see all available commands:
+
+![CLI commands](cli-commands.png)
+
+
+And then you can run any command you need, e.g. migrate command:
+
+```sh
+php www/index.php migrations:migrate
+```
+
+If you get lost, just use `-h` option for help:
+
+```sh
+php www/index.php migrations:migrate -h
+```
+
+
+For further use, please check [docs in Symfony bundle](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html).
 
 
 ## Features
