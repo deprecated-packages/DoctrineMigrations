@@ -8,18 +8,15 @@
 	"require": {
 		"php": ">=5.5",
 		"doctrine/migrations": "~1.0@dev",
+		"kdyby/doctrine": "~2.0",
 		"kdyby/console": "~2.0"
 	},
 	"require-dev": {
-		"kdyby/doctrine": "~2.0",
 		"nette/bootstrap": "~2.2",
 		"nette/di": "~2.2",
 		"nette/http": "~2.2",
 		"nette/mail": "~2.2",
-		"nette/safe-stream": "~2.2",
-		"zenify/coding-standard": "~3.0",
-		"jakub-onderka/php-parallel-lint": "~0.8",
-		"phpunit/phpunit": "~4.4"
+		"nette/safe-stream": "~2.2"
 	},
 	"autoload": {
 		"psr-4": {
