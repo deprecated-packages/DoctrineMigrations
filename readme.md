@@ -28,12 +28,22 @@ and run `composer update`.
 *This is due to [doctrine/migrations](https://github.com/doctrine/migrations), that hasn't been tagged for a long time.*
 
 
-Register extensions in `config.neon`:
+Register extensions in `config.neon` (includes [Kdyby/Doctrine](https://github.com/kdyby/doctrine)):
 
 ```yaml
 extensions:
-	- Kdyby\Console\DI\ConsoleExtension
-	migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
+    - Kdyby\Annotations\DI\AnnotationsExtension
+    - Kdyby\Events\DI\EventsExtension
+    - Kdyby\Console\DI\ConsoleExtension
+    doctrine: Kdyby\Doctrine\DI\OrmExtension
+    migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
+
+# Kdyby\Doctrine configuration
+doctrine:
+	host: localhost
+	user: root
+	password: 
+	dbname: database
 ```
 
 
