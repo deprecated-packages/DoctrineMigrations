@@ -9,6 +9,8 @@ matrix:
   include:
     - php: 5.5
       env: NETTE_VERSION='2.2.*'
+  allow_failures:
+    - php: nightly
 
 install:
   - composer create-project --prefer-source --dev --no-interaction zenify/ci vendor/ci @dev
