@@ -8,8 +8,4 @@ extensions:
 
 doctrine:
 	driver: pdo_sqlite
-	memory: true
-
-
-migrations:
-	enabled: TRUE
+	memory: TRUE

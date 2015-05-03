@@ -9,9 +9,7 @@ namespace Zenify\DoctrineMigrations\Configuration;
 
 use Doctrine;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Migrations\MigrationException;
 use Doctrine\DBAL\Migrations\OutputWriter;
-use Doctrine\DBAL\Migrations\Version;
 use Nette\DI\Container;
 
 
@@ -21,7 +19,7 @@ class Configuration extends Doctrine\DBAL\Migrations\Configuration\Configuration
 	/**
 	 * @var string
 	 */
-	protected $cs;
+	private $cs;
 
 
 	public function __construct(Connection $connection, OutputWriter $outputWriter, Container $container)
@@ -32,9 +30,7 @@ class Configuration extends Doctrine\DBAL\Migrations\Configuration\Configuration
 
 
 	/**
-	 * @param string $direction
-	 * @param string $to
-	 * @return Version[]
+	 * {@inheritdoc}
 	 */
 	public function getMigrationsToExecute($direction, $to)
 	{
@@ -47,9 +43,7 @@ class Configuration extends Doctrine\DBAL\Migrations\Configuration\Configuration
 
 
 	/**
-	 * @param string $version
-	 * @return Version
-	 * @throws MigrationException
+	 * {@inheritdoc}
 	 */
 	public function getVersion($version)
 	{
