@@ -8,16 +8,13 @@
 	"require": {
 		"php": ">=5.5",
 		"doctrine/migrations": "~1.0@dev",
-		"kdyby/doctrine": "~2.0",
-		"kdyby/console": "~2.0",
-		"tracy/tracy": "~2.2"
+		"kdyby/doctrine": "~2.2",
+		"kdyby/console": "~2.3",
+		"nette/di": "~2.3",
+		"tracy/tracy": "~2.3"
 	},
 	"require-dev": {
-		"nette/bootstrap": "~2.2",
-		"nette/di": "~2.2",
-		"nette/http": "~2.2",
-		"nette/mail": "~2.2",
-		"nette/safe-stream": "~2.2"
+		"nette/bootstrap": "~2.3"
 	},
 	"autoload": {
 		"psr-4": {
