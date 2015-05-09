@@ -11,8 +11,6 @@ use Kdyby\Console\DI\ConsoleExtension;
 use Nette\DI\CompilerExtension;
 use Nette\Utils\AssertionException;
 use Nette\Utils\Validators;
-use Zenify\DoctrineMigrations\Configuration\Configuration;
-use Zenify\DoctrineMigrations\OutputWriter;
 
 
 class MigrationsExtension extends CompilerExtension
@@ -23,13 +21,13 @@ class MigrationsExtension extends CompilerExtension
 	/**
 	 * @var array
 	 */
-	private $defaults = [
+	private $defaults = array(
 		'table' => 'doctrine_migrations',
-		'dirs' => [],
+		'dirs' => array(),
 		'namespace' => 'Migrations',
 		'enabled' => FALSE,
 		'codingStandard' => self::CS_TABS # or "spaces"
-	];
+	);
 
 
 	public function __construct()
@@ -49,29 +47,29 @@ class MigrationsExtension extends CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		if (count($config['dirs']) === 0) {
-			$config['dirs'] = [$builder->expand('%appDir%/../migrations')];
+			$config['dirs'] = array($builder->expand('%appDir%/../migrations'));
 		}
 
 		$builder->addDefinition($this->prefix('consoleOutput'))
-			->setClass(OutputWriter::class);
+			->setClass('Zenify\DoctrineMigrations\OutputWriter');
 
 		$configuration = $builder->addDefinition($this->prefix('configuration'))
-			->setClass(Configuration::class)
-			->addSetup('setMigrationsTableName', [$config['table']])
-			->addSetup('setMigrationsDirectory', [reset($config['dirs'])])
-			->addSetup('setMigrationsNamespace', [$config['namespace']])
-			->addSetup('setCs', [$config['codingStandard']]);
+			->setClass('Zenify\DoctrineMigrations\Configuration\Configuration')
+			->addSetup('setMigrationsTableName', array($config['table']))
+			->addSetup('setMigrationsDirectory', array(reset($config['dirs'])))
+			->addSetup('setMigrationsNamespace', array($config['namespace']))
+			->addSetup('setCs', array($config['codingStandard']));
 
 		$dirs = array_unique($config['dirs']);
 		foreach ($dirs as $dir) {
-			$configuration->addSetup('registerMigrationsFromDirectory', [$dir]);
+			$configuration->addSetup('registerMigrationsFromDirectory', array($dir));
 		}
 
 		foreach ($this->loadFromFile(__DIR__ . '/commands.neon') as $i => $class) {
 			$builder->addDefinition($this->prefix('command.' . $i))
 				->setClass($class)
 				->addTag(ConsoleExtension::COMMAND_TAG)
-				->addSetup('setMigrationConfiguration', [$configuration]);
+				->addSetup('setMigrationConfiguration', array($configuration));
 		}
 	}
 

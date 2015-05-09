@@ -4,9 +4,6 @@ namespace ZenifyTests\DoctrineMigrations\DI;
 
 use Nette;
 use PHPUnit_Framework_TestCase;
-use Zenify;
-use Zenify\DoctrineMigrations\Configuration\Configuration;
-use Zenify\DoctrineMigrations\OutputWriter;
 use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 
 
@@ -28,13 +25,13 @@ class MigrationsExtensionTest extends PHPUnit_Framework_TestCase
 	public function testExtension()
 	{
 		$this->assertInstanceOf(
-			Configuration::class,
-			$this->container->getByType(Configuration::class)
+			'Zenify\DoctrineMigrations\Configuration\Configuration',
+			$this->container->getByType('Zenify\DoctrineMigrations\Configuration\Configuration')
 		);
 
 		$this->assertInstanceOf(
-			OutputWriter::class,
-			$this->container->getByType(OutputWriter::class)
+			'Zenify\DoctrineMigrations\OutputWriter',
+			$this->container->getByType('Zenify\DoctrineMigrations\OutputWriter')
 		);
 	}
 
