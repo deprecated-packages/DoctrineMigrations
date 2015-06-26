@@ -8,11 +8,15 @@
 	"require": {
 		"php": ">=5.5",
 		"doctrine/migrations": "~1.0@dev",
-		"kdyby/doctrine": "~2.0",
-		"kdyby/console": "~2.0",
 		"tracy/tracy": "~2.2"
 	},
+	"suggest": {
+		"kdyby/doctrine": "Integration of Doctrine 2 ORM into Nette Framework",
+		"kdyby/console": "Integration of Symfony Console component into Nette Framework"
+	},
 	"require-dev": {
+		"kdyby/doctrine": ">=2.0@dev",
+		"kdyby/console": ">=2.0@dev",
 		"nette/bootstrap": "~2.2",
 		"nette/di": "~2.2",
 		"nette/http": "~2.2",
