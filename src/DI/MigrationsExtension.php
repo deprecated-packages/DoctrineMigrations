@@ -64,7 +64,7 @@ class MigrationsExtension extends CompilerExtension
 
 		$dirs = array_unique($config['dirs']);
 		foreach ($dirs as $dir) {
-			$configuration->addSetup('registerMigrationsFromDirectory', [$dir]);
+			$configuration->addSetup('addMigrationsDirectory', [$dir]);
 		}
 
 		foreach ($this->loadFromFile(__DIR__ . '/commands.neon') as $i => $class) {
