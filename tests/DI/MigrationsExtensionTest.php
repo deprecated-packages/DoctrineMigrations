@@ -1,6 +1,6 @@
 <?php
 
-namespace ZenifyTests\DoctrineMigrations\DI;
+namespace Zenify\DoctrineMigrations\Tests\DI;
 
 use Nette\DI\Container;
 use PHPUnit_Framework_TestCase;
