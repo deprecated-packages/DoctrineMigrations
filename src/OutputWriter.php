@@ -8,10 +8,11 @@
 namespace Zenify\DoctrineMigrations;
 
 use Doctrine;
+use Doctrine\DBAL\Migrations\OutputWriter as DoctrineOutputWriter;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 
-class OutputWriter extends Doctrine\DBAL\Migrations\OutputWriter
+class OutputWriter extends DoctrineOutputWriter
 {
 
 	/**

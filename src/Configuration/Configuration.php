@@ -7,19 +7,20 @@
 
 namespace Zenify\DoctrineMigrations\Configuration;
 
-use Doctrine;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Migrations\Configuration\Configuration as BaseConfiguration;
 use Doctrine\DBAL\Migrations\OutputWriter;
 use Nette\DI\Container;
+use Zenify\DoctrineMigrations\DI\MigrationsExtension;
 
 
-class Configuration extends Doctrine\DBAL\Migrations\Configuration\Configuration
+class Configuration extends BaseConfiguration
 {
 
 	/**
 	 * @var string
 	 */
-	private $cs;
+	private $codingStandard = MigrationsExtension::CODING_STANDARD_TABS;
 
 
 	public function __construct(Connection $connection, OutputWriter $outputWriter, Container $container)
@@ -54,20 +55,20 @@ class Configuration extends Doctrine\DBAL\Migrations\Configuration\Configuration
 
 
 	/**
-	 * @param string $cs
+	 * @param string $codingStandard
 	 */
-	public function setCs($cs)
+	public function setCodingStandard($codingStandard)
 	{
-		$this->cs = $cs;
+		$this->codingStandard = $codingStandard;
 	}
 
 
 	/**
 	 * @return string
 	 */
-	public function getCs()
+	public function getCodingStandard()
 	{
-		return $this->cs;
+		return $this->codingStandard;
 	}
 
 }

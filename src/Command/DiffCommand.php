@@ -7,14 +7,14 @@
 
 namespace Zenify\DoctrineMigrations\Command;
 
-use Doctrine;
+use Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCommand as DoctrineDiffCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Zenify\DoctrineMigrations\Configuration\Configuration;
 use Zenify\DoctrineMigrations\DI\MigrationsExtension;
 
 
-class DiffCommand extends Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCommand
+class DiffCommand extends DoctrineDiffCommand
 {
 
 	public function execute(InputInterface $input, OutputInterface $output)
@@ -23,7 +23,7 @@ class DiffCommand extends Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCom
 
 		/** @var Configuration $configuration */
 		$configuration = $this->getMigrationConfiguration($input, $output);
-		if ($configuration->getCs() === MigrationsExtension::CS_TABS) {
+		if ($configuration->getCodingStandard() === MigrationsExtension::CODING_STANDARD_TABS) {
 			$version = date('YmdHis');
 			$configuration = $this->getMigrationConfiguration($input, $output);
 			$dir = $configuration->getMigrationsDirectory();
