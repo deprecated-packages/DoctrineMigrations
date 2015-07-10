@@ -7,7 +7,6 @@
 
 namespace Zenify\DoctrineMigrations;
 
-use Doctrine;
 use Doctrine\DBAL\Migrations\OutputWriter as DoctrineOutputWriter;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
