@@ -28,7 +28,7 @@ class MigrationsExtensionTest extends PHPUnit_Framework_TestCase
 	public function testExtension()
 	{
 		$this->assertInstanceOf(Configuration::class, $this->container->getByType(Configuration::class));
-		$this->assertInstanceOf(OutputWriter::class,$this->container->getByType(OutputWriter::class));
+		$this->assertInstanceOf(OutputWriter::class, $this->container->getByType(OutputWriter::class));
 	}
 
 }
