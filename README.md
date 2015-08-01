@@ -45,7 +45,6 @@ migrations:
 	dirs: # list of dirs to load migrations from
 		- %appDir%/../migrations # first dir is used for generating migrations
 	namespace: Migrations # namespace of migration classes
-	enabled: FALSE # cli based loading; set TRUE to force loading in non-cli
 	codingStandard: tabs # or "spaces", cs for generated classes
 ```
 
