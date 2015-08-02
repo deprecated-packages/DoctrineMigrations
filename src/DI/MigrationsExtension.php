@@ -33,23 +33,13 @@ class MigrationsExtension extends CompilerExtension
 		'table' => 'doctrine_migrations',
 		'dirs' => [],
 		'namespace' => 'Migrations',
-		'enabled' => FALSE,
 		'codingStandard' => self::CODING_STANDARD_TABS
 	];
-
-
-	public function __construct()
-	{
-		$this->defaults['enabled'] = PHP_SAPI === 'cli';
-	}
 
 
 	public function loadConfiguration()
 	{
 		$config = $this->getConfig($this->defaults);
-		if ($config['enabled'] === FALSE) {
-			return;
-		}
 		$this->validateConfigTypes($config);
 
 		$containerBuilder = $this->getContainerBuilder();

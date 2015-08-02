@@ -11,20 +11,11 @@ Implementation of [Doctrine\Migrations](http://docs.doctrine-project.org/project
 
 ## Install
 
-Add to your `composer.json`:
+Install via Composer:
 
-```json
-"require": {
-    "doctrine/migrations": "@dev",
-    "zenify/doctrine-migrations": "~2.0"
-}
+```sh
+composer require zenify/doctrine-migrations
 ```
-
-and run `composer update`.
-
-
-*This is due to [doctrine/migrations](https://github.com/doctrine/migrations), that hasn't been tagged for a long time.*
-
 
 Register extensions in `config.neon` (includes [Kdyby/Doctrine](https://github.com/kdyby/doctrine) configuration):
 
@@ -54,7 +45,6 @@ migrations:
 	dirs: # list of dirs to load migrations from
 		- %appDir%/../migrations # first dir is used for generating migrations
 	namespace: Migrations # namespace of migration classes
-	enabled: FALSE # cli based loading; set TRUE to force loading in non-cli
 	codingStandard: tabs # or "spaces", cs for generated classes
 ```
 
@@ -117,17 +107,17 @@ class Version20140801152432 extends AbstractMigration
 
 	/**
 	 * @inject
-	 * @var Doctrine\ORM\EntityManager
+	 * @var Doctrine\ORM\EntityManagerInterface
 	 */
-	public $em;
+	public $entityManager;
 
 
 	public function up(Schema $schema)
 	{
 		$product = new Product;
 		$product->setName('Chips without fish')
-		$this->em->persist(product);
-		$this->em->flush();
+		$this->entityManager->persist(product);
+		$this->entityManager->flush();
 	}
 
 	// ...
