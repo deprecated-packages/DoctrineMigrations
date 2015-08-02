@@ -1,6 +1,3 @@
-services:
-	- Zenify\DoctrineMigrations\Tests\Configuration\ConfigurationSource\SomeService
-
 extensions:
 	- Kdyby\Console\DI\ConsoleExtension
 	- Kdyby\Events\DI\EventsExtension
