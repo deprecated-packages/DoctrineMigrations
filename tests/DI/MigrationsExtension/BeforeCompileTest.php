@@ -37,6 +37,7 @@ class BeforeCompileTest extends PHPUnit_Framework_TestCase
 
 		$this->extension->setCompiler(new Compiler($this->containerBuilder), 'migrations');
 		$this->extension->loadConfiguration();
+		$this->extension->beforeCompile();
 
 		$this->containerBuilder->prepareClassList();
 	}
@@ -44,8 +45,6 @@ class BeforeCompileTest extends PHPUnit_Framework_TestCase
 
 	public function testSetConfigurationToCommands()
 	{
-		$this->extension->beforeCompile();
-
 		$executeCommandDefinition = $this->getDefinitionByType(ExecuteCommand::class);
 
 		$this->matchDefinitionSetupStatement(
@@ -58,8 +57,6 @@ class BeforeCompileTest extends PHPUnit_Framework_TestCase
 
 	public function testLoadCommandsToApplication()
 	{
-		$this->extension->beforeCompile();
-
 		$applicationDefinition = $this->getDefinitionByType(Application::class);
 
 		$this->assertCount(6, $applicationDefinition->getSetup());

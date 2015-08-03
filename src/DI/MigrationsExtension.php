@@ -43,37 +43,29 @@ class MigrationsExtension extends CompilerExtension
 	 */
 	public function loadConfiguration()
 	{
-		$config = $this->getConfig($this->defaults);
-		$this->validateConfigTypes($config);
-
 		$containerBuilder = $this->getContainerBuilder();
 		$services = $this->loadFromFile(__DIR__ . '/../config/services/services.neon');
 		$this->compiler->parseServices($containerBuilder, $services);
 
-		if (count($config['dirs']) === 0) {
-			$config['dirs'] = [$containerBuilder->expand('%appDir%/../migrations')];
-		}
-
-		$configurationDefinition = $containerBuilder->addDefinition($this->prefix('configuration'))
-			->setClass(Configuration::class)
-			->addSetup('setMigrationsTableName', [$config['table']])
-			->addSetup('setMigrationsDirectory', [reset($config['dirs'])])
-			->addSetup('setMigrationsNamespace', [$config['namespace']])
-			->addSetup('setCodingStandard', [$config['codingStandard']]);
-
-		$dirs = array_unique($config['dirs']);
-		foreach ($dirs as $dir) {
-			$configurationDefinition->addSetup('registerMigrationsFromDirectory', [$dir]);
-		}
+		$config = $this->getConfig($this->defaults);
+		$this->addConfigurationDefinition($config);
 	}
 
 
-	private function validateConfigTypes(array $config)
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getConfig(array $defaults)
 	{
-		Assertion::string($config['table']);
-		Assertion::isArray($config['dirs']);
-		Assertion::string($config['namespace']);
-		Assertion::string($config['codingStandard']);
+		$config = parent::getConfig($defaults);
+		if (count($config['dirs']) === 0) {
+			$containerBuilder = $this->getContainerBuilder();
+			$config['dirs'] = [$containerBuilder->expand('%appDir%/../migrations')];
+		}
+
+		$this->validateConfigTypes($config);
+
+		return $config;
 	}
 
 
@@ -87,6 +79,33 @@ class MigrationsExtension extends CompilerExtension
 
 		$this->setConfigurationToCommands();
 		$this->loadCommandsToApplication();
+	}
+
+
+	private function validateConfigTypes(array $config)
+	{
+		Assertion::string($config['table']);
+		Assertion::isArray($config['dirs']);
+		Assertion::string($config['namespace']);
+		Assertion::string($config['codingStandard']);
+	}
+
+
+	private function addConfigurationDefinition(array $config)
+	{
+		$containerBuilder = $this->getContainerBuilder();
+
+		$configurationDefinition = $containerBuilder->addDefinition($this->prefix('configuration'))
+			->setClass(Configuration::class)
+			->addSetup('setMigrationsTableName', [$config['table']])
+			->addSetup('setMigrationsDirectory', [reset($config['dirs'])])
+			->addSetup('setMigrationsNamespace', [$config['namespace']])
+			->addSetup('setCodingStandard', [$config['codingStandard']]);
+
+		$dirs = array_unique($config['dirs']);
+		foreach ($dirs as $dir) {
+			$configurationDefinition->addSetup('registerMigrationsFromDirectory', [$dir]);
+		}
 	}
 
 
