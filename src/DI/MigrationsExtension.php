@@ -47,25 +47,8 @@ class MigrationsExtension extends CompilerExtension
 		$services = $this->loadFromFile(__DIR__ . '/../config/services/services.neon');
 		$this->compiler->parseServices($containerBuilder, $services);
 
-		$config = $this->getConfig($this->defaults);
+		$config = $this->getValidatedConfig($this->defaults);
 		$this->addConfigurationDefinition($config);
-	}
-
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getConfig(array $defaults)
-	{
-		$config = parent::getConfig($defaults);
-		if (count($config['dirs']) === 0) {
-			$containerBuilder = $this->getContainerBuilder();
-			$config['dirs'] = [$containerBuilder->expand('%appDir%/../migrations')];
-		}
-
-		$this->validateConfigTypes($config);
-
-		return $config;
 	}
 
 
@@ -79,6 +62,23 @@ class MigrationsExtension extends CompilerExtension
 
 		$this->setConfigurationToCommands();
 		$this->loadCommandsToApplication();
+	}
+
+
+	/**
+	 * @return array
+	 */
+	private function getValidatedConfig(array $defaults)
+	{
+		$config = parent::getConfig($defaults);
+		if (count($config['dirs']) === 0) {
+			$containerBuilder = $this->getContainerBuilder();
+			$config['dirs'] = [$containerBuilder->expand('%appDir%/../migrations')];
+		}
+
+		$this->validateConfigTypes($config);
+
+		return $config;
 	}
 
 
