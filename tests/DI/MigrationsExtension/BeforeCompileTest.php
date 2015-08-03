@@ -6,6 +6,7 @@ use Doctrine\DBAL\Migrations\Tools\Console\Command\ExecuteCommand;
 use Nette\DI\Compiler;
 use Nette\DI\ContainerBuilder;
 use Nette\DI\ServiceDefinition;
+use Nette\DI\Statement;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\Console\Application;
 use Zenify\DoctrineMigrations\Configuration\Configuration;
@@ -47,8 +48,11 @@ class BeforeCompileTest extends PHPUnit_Framework_TestCase
 
 		$executeCommandDefinition = $this->getDefinitionByType(ExecuteCommand::class);
 
-		$this->assertSame('setMigrationConfiguration', $executeCommandDefinition->getSetup()[0]->getEntity());
-		$this->assertSame(['@' . Configuration::class], $executeCommandDefinition->getSetup()[0]->arguments);
+		$this->matchDefinitionSetupStatement(
+			$executeCommandDefinition->getSetup()[0],
+			'setMigrationConfiguration',
+			['@' . Configuration::class]
+		);
 	}
 
 
@@ -59,8 +63,23 @@ class BeforeCompileTest extends PHPUnit_Framework_TestCase
 		$applicationDefinition = $this->getDefinitionByType(Application::class);
 
 		$this->assertCount(6, $applicationDefinition->getSetup());
-		$this->assertSame('add', $applicationDefinition->getSetup()[0]->getEntity());
-		$this->assertSame(['@' . ExecuteCommand::class], $applicationDefinition->getSetup()[0]->arguments);
+		$this->matchDefinitionSetupStatement(
+			$applicationDefinition->getSetup()[0],
+			'add',
+			['@' . ExecuteCommand::class]
+		);
+	}
+
+
+	/**
+	 * @param Statement $statement
+	 * @param string $entity
+	 * @param array $arguments
+	 */
+	private function matchDefinitionSetupStatement(Statement $statement, $entity, array $arguments)
+	{
+		$this->assertSame($entity, $statement->getEntity());
+		$this->assertSame($arguments, $statement->arguments);
 	}
 
 
