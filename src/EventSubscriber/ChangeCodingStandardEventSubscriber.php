@@ -7,13 +7,11 @@
 
 namespace Zenify\DoctrineMigrations\EventSubscriber;
 
-use Doctrine\DBAL\Migrations\Tools\Console\Command\GenerateCommand;
+use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Zenify\DoctrineMigrations\CodeStyle\CodeStyle;
-use Zenify\DoctrineMigrations\Configuration\Configuration;
-use Zenify\DoctrineMigrations\DI\MigrationsExtension;
+use Zenify\DoctrineMigrations\Contract\CodeStyle\CodeStyleInterface;
 
 
 class ChangeCodingStandardEventSubscriber implements EventSubscriberInterface
@@ -25,15 +23,15 @@ class ChangeCodingStandardEventSubscriber implements EventSubscriberInterface
 	private $configuration;
 
 	/**
-	 * @var CodeStyle
+	 * @var CodeStyleInterface
 	 */
 	private $codeStyle;
 
 
-	public function __construct(Configuration $configuration, CodeStyle $codeStyle)
+	public function __construct(Configuration $configuration, CodeStyleInterface $codeStyle)
 	{
-		$this->configuration = $configuration;
 		$this->codeStyle = $codeStyle;
+		$this->configuration = $configuration;
 	}
 
 
@@ -42,16 +40,12 @@ class ChangeCodingStandardEventSubscriber implements EventSubscriberInterface
 	 */
 	public static function getSubscribedEvents()
 	{
-		return [ConsoleEvents::TERMINATE => 'changeCodingStandard'];
+		return [ConsoleEvents::TERMINATE => 'applyCodingStyle'];
 	}
 
 
-	public function changeCodingStandard(ConsoleTerminateEvent $event)
+	public function applyCodingStyle(ConsoleTerminateEvent $event)
 	{
-		if ($this->configuration->getCodingStandard() === MigrationsExtension::CODING_STANDARD_SPACES) {
-			return;
-		}
-
 		$command = $event->getCommand();
 		if ( ! $this->isAllowedCommand($command->getName())) {
 			return;
@@ -59,7 +53,7 @@ class ChangeCodingStandardEventSubscriber implements EventSubscriberInterface
 
 		$filename = $this->getCurrentMigrationFileName();
 		if (file_exists($filename)) {
-			$this->codeStyle->convertSpacesToTabsForFile($filename);
+			$this->codeStyle->applyForFile($filename);
 		}
 	}
 

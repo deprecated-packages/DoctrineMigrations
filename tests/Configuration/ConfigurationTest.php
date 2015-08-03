@@ -3,9 +3,10 @@
 namespace Zenify\DoctrineMigrations\Tests\Configuration;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use Doctrine\DBAL\Migrations\Version;
 use PHPUnit_Framework_TestCase;
-use Zenify\DoctrineMigrations\Configuration\Configuration;
+use Zenify\DoctrineMigrations\CodeStyle\CodeStyle;
 use Zenify\DoctrineMigrations\DI\MigrationsExtension;
 use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 use Zenify\DoctrineMigrations\Tests\Migrations\Version123;
@@ -24,15 +25,6 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
 	{
 		$container = (new ContainerFactory)->create();
 		$this->configuration = $container->getByType(Configuration::class);
-	}
-
-
-	public function testCodingStandard()
-	{
-		$this->assertSame(MigrationsExtension::CODING_STANDARD_TABS, $this->configuration->getCodingStandard());
-
-		$this->configuration->setCodingStandard(MigrationsExtension::CODING_STANDARD_SPACES);
-		$this->assertSame(MigrationsExtension::CODING_STANDARD_SPACES, $this->configuration->getCodingStandard());
 	}
 
 

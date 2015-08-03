@@ -2,12 +2,11 @@
 
 namespace Zenify\DoctrineMigrations\Tests\EventSubscriber;
 
+use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Zenify\DoctrineMigrations\Configuration\Configuration;
-use Zenify\DoctrineMigrations\DI\MigrationsExtension;
 use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 
 
@@ -33,14 +32,33 @@ class ChangeCodingStandardEventSubscriberTest extends PHPUnit_Framework_TestCase
 	}
 
 
-	public function testDispatching()
+	public function testDispatchingGenerateCommand()
 	{
 		$input = new ArrayInput(['command' => 'migrations:generate']);
 		$output = new BufferedOutput;
 
 		$result = $this->application->run($input, $output);
+
 		$this->assertSame(0, $result);
-		$this->assertContains('Generated new migration class to', $output->fetch());
+		$outputContent = $output->fetch();
+		$this->assertContains('Generated new migration class to', $outputContent);
+
+		$migrationFile = $this->extractMigrationFile($outputContent);
+		$fileContents = file_get_contents($migrationFile);
+		$this->assertNotContains('    ', $fileContents);
+		$this->assertContains(' ', $fileContents);
+	}
+
+
+	public function testDispatchingDiffCommand()
+	{
+		$input = new ArrayInput(['command' => 'migrations:diff']);
+		$output = new BufferedOutput;
+
+		$result = $this->application->run($input, $output);
+		$this->assertSame(0, $result);
+		$outputContent = $output->fetch();
+		$this->assertContains('No changes detected in your mapping information.', $outputContent);
 	}
 
 
@@ -50,6 +68,17 @@ class ChangeCodingStandardEventSubscriberTest extends PHPUnit_Framework_TestCase
 	private function getMigrationsDirectory()
 	{
 		return TEMP_DIR . '/Migrations';
+	}
+
+
+	/**
+	 * @param string $outputContent
+	 * @return string
+	 */
+	private function extractMigrationFile($outputContent)
+	{
+		preg_match('/"([^"]+)"/', $outputContent, $matches);
+		return $matches[1];
 	}
 
 }

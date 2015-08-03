@@ -8,24 +8,15 @@
 namespace Zenify\DoctrineMigrations\DI;
 
 use Assert\Assertion;
+use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand;
 use Nette\DI\CompilerExtension;
 use Symfony\Component\Console\Application;
-use Zenify\DoctrineMigrations\Configuration\Configuration;
+use Zenify\DoctrineMigrations\CodeStyle\CodeStyle;
 
 
 class MigrationsExtension extends CompilerExtension
 {
-
-	/**
-	 * @var string
-	 */
-	const CODING_STANDARD_TABS = 'tabs';
-
-	/**
-	 * @var string
-	 */
-	const CODING_STANDARD_SPACES = 'spaces';
 
 	/**
 	 * @var mixed[]
@@ -34,7 +25,7 @@ class MigrationsExtension extends CompilerExtension
 		'table' => 'doctrine_migrations',
 		'dirs' => [],
 		'namespace' => 'Migrations',
-		'codingStandard' => self::CODING_STANDARD_TABS
+		'codingStandard' => CodeStyle::INDENTATION_TABS
 	];
 
 
@@ -48,6 +39,11 @@ class MigrationsExtension extends CompilerExtension
 		$this->compiler->parseServices($containerBuilder, $services);
 
 		$config = $this->getValidatedConfig($this->defaults);
+
+		$containerBuilder->addDefinition($this->prefix('codeStyle'))
+			->setClass(CodeStyle::class)
+			->setArguments([$config['codingStandard']]);
+
 		$this->addConfigurationDefinition($config);
 	}
 
@@ -99,8 +95,7 @@ class MigrationsExtension extends CompilerExtension
 			->setClass(Configuration::class)
 			->addSetup('setMigrationsTableName', [$config['table']])
 			->addSetup('setMigrationsDirectory', [reset($config['dirs'])])
-			->addSetup('setMigrationsNamespace', [$config['namespace']])
-			->addSetup('setCodingStandard', [$config['codingStandard']]);
+			->addSetup('setMigrationsNamespace', [$config['namespace']]);
 
 		$dirs = array_unique($config['dirs']);
 		foreach ($dirs as $dir) {
