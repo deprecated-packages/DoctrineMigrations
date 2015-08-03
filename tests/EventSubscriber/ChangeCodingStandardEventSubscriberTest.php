@@ -38,15 +38,8 @@ class ChangeCodingStandardEventSubscriberTest extends PHPUnit_Framework_TestCase
 		$output = new BufferedOutput;
 
 		$result = $this->application->run($input, $output);
-
 		$this->assertSame(0, $result);
-		$outputContent = $output->fetch();
-		$this->assertContains('Generated new migration class to', $outputContent);
-
-		$migrationFile = $this->extractMigrationFile($outputContent);
-		$fileContents = file_get_contents($migrationFile);
-		$this->assertNotContains('    ', $fileContents);
-		$this->assertContains(' ', $fileContents);
+		$this->assertCommandOutputAndMigrationCodeStyle($output->fetch());
 	}
 
 
@@ -57,8 +50,21 @@ class ChangeCodingStandardEventSubscriberTest extends PHPUnit_Framework_TestCase
 
 		$result = $this->application->run($input, $output);
 		$this->assertSame(0, $result);
-		$outputContent = $output->fetch();
-		$this->assertContains('No changes detected in your mapping information.', $outputContent);
+		$this->assertCommandOutputAndMigrationCodeStyle($output->fetch());
+	}
+
+
+	/**
+	 * @param string $outputContent
+	 */
+	private function assertCommandOutputAndMigrationCodeStyle($outputContent)
+	{
+		$this->assertContains('Generated new migration class to', $outputContent);
+
+		$migrationFile = $this->extractMigrationFile($outputContent);
+		$fileContents = file_get_contents($migrationFile);
+		$this->assertNotContains('    ', $fileContents);
+		$this->assertContains(' ', $fileContents);
 	}
 
 
