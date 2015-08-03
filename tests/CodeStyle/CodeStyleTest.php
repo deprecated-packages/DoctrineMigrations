@@ -13,7 +13,7 @@ class CodeStyleTest extends PHPUnit_Framework_TestCase
 	{
 		$file = TEMP_DIR . '/some-spaced-text-file.txt';
 		file_put_contents($file, '    hi');
-		CodeStyle::convertSpacesToTabsForFile($file);
+		(new CodeStyle)->convertSpacesToTabsForFile($file);
 
 		$this->assertStringNotEqualsFile($file, '    hi');
 		$this->assertStringEqualsFile($file, "\thi");

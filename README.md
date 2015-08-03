@@ -22,6 +22,7 @@ Register extensions in `config.neon`:
 ```yaml
 extensions:
 	migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
+	- Symnedi\EventDispatcher\DI\EventDispatcherExtension
 	# Kdyby or another Doctrine integration
 ```
 

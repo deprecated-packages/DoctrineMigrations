@@ -7,6 +7,7 @@ services:
 		class: Symfony\Component\Console\Application
 		setup:
 			- setHelperSet
+			- setDispatcher
 
 
 application:
@@ -17,6 +18,7 @@ extensions:
 	- Kdyby\Events\DI\EventsExtension
 	- Kdyby\Annotations\DI\AnnotationsExtension
 	doctrine: Kdyby\Doctrine\DI\OrmExtension
+	- Symnedi\EventDispatcher\DI\EventDispatcherExtension
 	migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
 
 

@@ -2,6 +2,7 @@
 
 namespace Zenify\DoctrineMigrations\Tests\DI\MigrationsExtension;
 
+use Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCommand;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\ExecuteCommand;
 use Nette\DI\Compiler;
 use Nette\DI\ContainerBuilder;
@@ -63,7 +64,7 @@ class BeforeCompileTest extends PHPUnit_Framework_TestCase
 		$this->matchDefinitionSetupStatement(
 			$applicationDefinition->getSetup()[0],
 			'add',
-			['@' . ExecuteCommand::class]
+			['@2_Doctrine_DBAL_Migrations_Tools_Console_Command_DiffCommand']
 		);
 	}
 

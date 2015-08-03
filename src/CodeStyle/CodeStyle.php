@@ -14,7 +14,7 @@ class CodeStyle
 	/**
 	 * @param string $file
 	 */
-	public static function convertSpacesToTabsForFile($file)
+	public function convertSpacesToTabsForFile($file)
 	{
 		$code = file_get_contents($file);
 		$code = preg_replace("/ {4}/", "\t", $code);

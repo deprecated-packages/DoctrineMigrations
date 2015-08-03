@@ -10,15 +10,13 @@
 		"beberlei/assert": "~2.3.0",
 		"doctrine/migrations": "~1.0.0",
 		"nette/di": "~2.3.0",
-		"nette/http": "~2.3.0",
+		"symnedi/event-dispatcher": "~0.2.1",
 		"symfony/console": "~2.7.0|~2.8.0",
 		"tracy/tracy": "~2.3.0"
 	},
 	"require-dev": {
 		"kdyby/doctrine": "~2.3.1",
 		"kdyby/events": "~2.4.0",
-		"nette/application": "~2.3.0",
-		"nette/caching": "~2.3.0",
 		"nette/bootstrap": "~2.3.0"
 	},
 	"autoload": {

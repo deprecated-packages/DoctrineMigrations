@@ -123,8 +123,8 @@ class MigrationsExtension extends CompilerExtension
 	{
 		$containerBuilder = $this->getContainerBuilder();
 		$applicationDefinition = $containerBuilder->getDefinition($containerBuilder->getByType(Application::class));
-		foreach ($containerBuilder->findByType(AbstractCommand::class) as $commandDefinition) {
-			$applicationDefinition->addSetup('add', ['@' . $commandDefinition->getClass()]);
+		foreach ($containerBuilder->findByType(AbstractCommand::class) as $name => $commandDefinition) {
+			$applicationDefinition->addSetup('add', ['@' . $name]);
 		}
 	}
 
