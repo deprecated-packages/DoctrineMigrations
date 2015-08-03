@@ -1,16 +1,22 @@
 <?php
-/**
- * This file is part of DoctrineMigrations
- *
- * Copyright (c) 2014 Pears Health Cyber, s.r.o. (http://pearshealthcyber.cz)
- *
- * For the full copyright and license information, please view
- * the file LICENSE that was distributed with this source code.
- */
+
+namespace Zenify\DoctrineMigrations\Tests\CodeStyle;
+
+use PHPUnit_Framework_TestCase;
+use Zenify\DoctrineMigrations\CodeStyle\CodeStyle;
 
 
-
-class CodeStyleTest
+class CodeStyleTest extends PHPUnit_Framework_TestCase
 {
+
+	public function testConvertToTabs()
+	{
+		$file = TEMP_DIR . '/some-spaced-text-file.txt';
+		file_put_contents($file, '    hi');
+		CodeStyle::convertSpacesToTabsForFile($file);
+
+		$this->assertStringNotEqualsFile($file, '    hi');
+		$this->assertStringEqualsFile($file, "\thi");
+	}
 
 }
