@@ -1,5 +1,12 @@
 services:
-	- Symfony\Component\Console\Application
+	-
+		class: Symfony\Component\Console\Helper\HelperSet
+		setup:
+			- set(@Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper, 'em')
+	-
+		class: Symfony\Component\Console\Application
+		setup:
+			- setHelperSet
 
 
 application:
