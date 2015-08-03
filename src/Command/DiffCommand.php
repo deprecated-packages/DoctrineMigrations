@@ -34,21 +34,31 @@ class DiffCommand extends DoctrineDiffCommand
 		$this->migrationsDirectory = $this->getMigrationsDirectory($configuration);
 
 		if ($configuration->getCodingStandard() === MigrationsExtension::CODING_STANDARD_TABS) {
-			$version = $this->getCurrentVersionName();
-
-			$i = 0;
-			while ( ! file_exists($this->getMigrationFileByVersion($version)) && $i <= 10) {
-				$version--;
-				$i++;
-			}
-
-			$path = $this->getMigrationFileByVersion($version);
+			$path = $this->getCurrentMigrationFileName();
 			if ( ! file_exists($path)) {
 				return;
 			}
 
 			CodeStyle::convertSpacesToTabsForFile($path);
 		}
+	}
+
+
+	/**
+	 * @return string
+	 */
+	private function getCurrentMigrationFileName()
+	{
+		$version = $this->getCurrentVersionName();
+
+		$i = 0;
+		while ( ! file_exists($this->getMigrationFileByVersion($version)) && $i <= 10) {
+			$version--;
+			$i++;
+		}
+
+		$path = $this->getMigrationFileByVersion($version);
+		return $path;
 	}
 
 
