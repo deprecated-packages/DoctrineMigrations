@@ -10,6 +10,7 @@ namespace Zenify\DoctrineMigrations\Command;
 use Doctrine\DBAL\Migrations\Configuration\Configuration as BaseConfiguration;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\GenerateCommand as BaseGenerateCommand;
 use Symfony\Component\Console\Input\InputInterface;
+use Zenify\DoctrineMigrations\CodeStyle\CodeStyle;
 use Zenify\DoctrineMigrations\Configuration\Configuration;
 use Zenify\DoctrineMigrations\DI\MigrationsExtension;
 
@@ -31,9 +32,7 @@ class GenerateCommand extends BaseGenerateCommand
 		$path = parent::generateMigration($configuration, $input, $version, $up, $down);
 
 		if ($configuration->getCodingStandard() === MigrationsExtension::CODING_STANDARD_TABS) {
-			$code = file_get_contents($path);
-			$code = preg_replace("/ {4}/", "\t", $code);
-			file_put_contents($path, $code);
+			CodeStyle::convertSpacesToTabsForFile($path);
 		}
 
 		return $path;

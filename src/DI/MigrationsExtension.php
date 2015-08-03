@@ -7,9 +7,10 @@
 
 namespace Zenify\DoctrineMigrations\DI;
 
+use Assert\Assertion;
+use Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand;
 use Nette\DI\CompilerExtension;
-use Nette\Utils\AssertionException;
-use Nette\Utils\Validators;
+use Symfony\Component\Console\Application;
 use Zenify\DoctrineMigrations\Configuration\Configuration;
 
 
@@ -27,7 +28,7 @@ class MigrationsExtension extends CompilerExtension
 	const CODING_STANDARD_SPACES = 'spaces';
 
 	/**
-	 * @var array
+	 * @var mixed[]
 	 */
 	private $defaults = [
 		'table' => 'doctrine_migrations',
@@ -37,18 +38,62 @@ class MigrationsExtension extends CompilerExtension
 	];
 
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function loadConfiguration()
 	{
-		$config = $this->getConfig($this->defaults);
-		$this->validateConfigTypes($config);
-
 		$containerBuilder = $this->getContainerBuilder();
-		$services = $this->loadFromFile(__DIR__ . '/services.neon');
+		$services = $this->loadFromFile(__DIR__ . '/../config/services/services.neon');
 		$this->compiler->parseServices($containerBuilder, $services);
 
+		$config = $this->getValidatedConfig($this->defaults);
+		$this->addConfigurationDefinition($config);
+	}
+
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function beforeCompile()
+	{
+		$containerBuilder = $this->getContainerBuilder();
+		$containerBuilder->prepareClassList();
+
+		$this->setConfigurationToCommands();
+		$this->loadCommandsToApplication();
+	}
+
+
+	/**
+	 * @return array
+	 */
+	private function getValidatedConfig(array $defaults)
+	{
+		$config = parent::getConfig($defaults);
 		if (count($config['dirs']) === 0) {
+			$containerBuilder = $this->getContainerBuilder();
 			$config['dirs'] = [$containerBuilder->expand('%appDir%/../migrations')];
 		}
+
+		$this->validateConfigTypes($config);
+
+		return $config;
+	}
+
+
+	private function validateConfigTypes(array $config)
+	{
+		Assertion::string($config['table']);
+		Assertion::isArray($config['dirs']);
+		Assertion::string($config['namespace']);
+		Assertion::string($config['codingStandard']);
+	}
+
+
+	private function addConfigurationDefinition(array $config)
+	{
+		$containerBuilder = $this->getContainerBuilder();
 
 		$configurationDefinition = $containerBuilder->addDefinition($this->prefix('configuration'))
 			->setClass(Configuration::class)
@@ -61,25 +106,26 @@ class MigrationsExtension extends CompilerExtension
 		foreach ($dirs as $dir) {
 			$configurationDefinition->addSetup('registerMigrationsFromDirectory', [$dir]);
 		}
+	}
 
-		foreach ($this->loadFromFile(__DIR__ . '/commands.neon') as $i => $class) {
-			$containerBuilder->addDefinition($this->prefix('command.' . $i))
-				->setClass($class)
-				->addTag('kdyby.console.command')
-				->addSetup('setMigrationConfiguration', [$configurationDefinition]);
+
+	private function setConfigurationToCommands()
+	{
+		$containerBuilder = $this->getContainerBuilder();
+		$configurationDefinition = $containerBuilder->getDefinition($containerBuilder->getByType(Configuration::class));
+		foreach ($containerBuilder->findByType(AbstractCommand::class) as $commandDefinition) {
+			$commandDefinition->addSetup('setMigrationConfiguration', ['@' . $configurationDefinition->getClass()]);
 		}
 	}
 
 
-	/**
-	 * @throws AssertionException
-	 */
-	private function validateConfigTypes(array $config)
+	private function loadCommandsToApplication()
 	{
-		Validators::assertField($config, 'table', 'string');
-		Validators::assertField($config, 'dirs', 'list');
-		Validators::assertField($config, 'namespace', 'string');
-		Validators::assertField($config, 'codingStandard', 'string');
+		$containerBuilder = $this->getContainerBuilder();
+		$applicationDefinition = $containerBuilder->getDefinition($containerBuilder->getByType(Application::class));
+		foreach ($containerBuilder->findByType(AbstractCommand::class) as $commandDefinition) {
+			$applicationDefinition->addSetup('add', ['@' . $commandDefinition->getClass()]);
+		}
 	}
 
 }
