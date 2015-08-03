@@ -17,21 +17,12 @@ Install via Composer:
 composer require zenify/doctrine-migrations
 ```
 
-Register extensions in `config.neon` (includes [Kdyby/Doctrine](https://github.com/kdyby/doctrine) configuration):
+Register extensions in `config.neon`:
 
 ```yaml
 extensions:
-    - Kdyby\Annotations\DI\AnnotationsExtension
-    - Kdyby\Events\DI\EventsExtension
-    - Kdyby\Console\DI\ConsoleExtension
-    doctrine: Kdyby\Doctrine\DI\OrmExtension
-    migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
-
-doctrine:
-	host: localhost
-	user: root
-	password: 
-	dbname: database
+	migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
+	# Kdyby or another Doctrine integration
 ```
 
 
@@ -44,6 +35,8 @@ migrations:
 	table: doctrine_migrations # database table for applied migrations
 	dirs: # list of dirs to load migrations from
 		- %appDir%/../migrations # first dir is used for generating migrations
+		- %appDir%/../migrations/2014
+		- %appDir%/../migrations/setup
 	namespace: Migrations # namespace of migration classes
 	codingStandard: tabs # or "spaces", cs for generated classes
 ```
@@ -51,7 +44,7 @@ migrations:
 
 ## Usage
 
-Open your CLI and run command:
+Open your CLI and run command (based on `Kdyby\Console` integration):
 
 ```sh
 php www/index.php
@@ -76,21 +69,3 @@ php www/index.php migrations:migrate -h
 
 
 For further use, please check [docs in Symfony bundle](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html).
-
-
-## Features
-
-
-### Multiple directories
-
-In case you have plenty of migrations and you want to store them in another directory, just add them to `dirs`.
-
-Only the first one (here `%appDir%/../migrations`) will be used to create migrations from command line. 
-
-```yaml
-migrations:
-	dirs:
-		- %appDir%/../migrations
-		- %appDir%/../migrations/2013
-		- %appDir%/../migrations/2012
-```
