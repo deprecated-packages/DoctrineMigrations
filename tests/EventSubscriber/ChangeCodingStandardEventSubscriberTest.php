@@ -41,16 +41,16 @@ class ChangeCodingStandardEventSubscriberTest extends PHPUnit_Framework_TestCase
 		$this->assertCommandOutputAndMigrationCodeStyle($output->fetch());
 	}
 
-//
-//	public function testDispatchingDiffCommand()
-//	{
-//		$input = new ArrayInput(['command' => 'migrations:diff']);
-//		$output = new BufferedOutput;
-//
-//		$result = $this->application->run($input, $output);
-//		$this->assertSame(0, $result);
-//		$this->assertCommandOutputAndMigrationCodeStyle($output->fetch());
-//	}
+
+	public function testDispatchingDiffCommand()
+	{
+		$input = new ArrayInput(['command' => 'migrations:diff']);
+		$output = new BufferedOutput;
+
+		$result = $this->application->run($input, $output);
+		$this->assertSame(0, $result);
+		$this->assertCommandOutputAndMigrationCodeStyle($output->fetch());
+	}
 
 
 	/**
