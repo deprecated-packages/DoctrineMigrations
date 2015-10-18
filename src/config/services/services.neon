@@ -3,9 +3,9 @@ services:
 	- {class: Zenify\DoctrineMigrations\EventSubscriber\ChangeCodingStandardEventSubscriber, tags: [kdyby.subscriber]}
 
 	# commands
-	- {class: Doctrine\DBAL\Migrations\Tools\Console\Command\ExecuteCommand, tags: [kdyby.console.command]}
-	- {class: Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCommand, tags: [kdyby.console.command]}
-	- {class: Doctrine\DBAL\Migrations\Tools\Console\Command\GenerateCommand, tags: [kdyby.console.command]}
-	- {class: Doctrine\DBAL\Migrations\Tools\Console\Command\MigrateCommand, tags: [kdyby.console.command]}
-	- {class: Doctrine\DBAL\Migrations\Tools\Console\Command\StatusCommand, tags: [kdyby.console.command]}
-	- {class: Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand, tags: [kdyby.console.command]}
+	- Doctrine\DBAL\Migrations\Tools\Console\Command\ExecuteCommand
+	- Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCommand
+	- Doctrine\DBAL\Migrations\Tools\Console\Command\GenerateCommand
+	- Doctrine\DBAL\Migrations\Tools\Console\Command\MigrateCommand
+	- Doctrine\DBAL\Migrations\Tools\Console\Command\StatusCommand
+	- Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand

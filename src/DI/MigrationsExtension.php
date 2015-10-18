@@ -57,6 +57,7 @@ final class MigrationsExtension extends CompilerExtension
 		$containerBuilder->prepareClassList();
 
 		$this->setConfigurationToCommands();
+		$this->loadCommandsToApplication();
 	}
 
 
@@ -110,6 +111,16 @@ final class MigrationsExtension extends CompilerExtension
 
 		foreach ($containerBuilder->findByType(AbstractCommand::class) as $commandDefinition) {
 			$commandDefinition->addSetup('setMigrationConfiguration', ['@' . $configurationDefinition->getClass()]);
+		}
+	}
+
+
+	private function loadCommandsToApplication()
+	{
+		$containerBuilder = $this->getContainerBuilder();
+		$applicationDefinition = $containerBuilder->getDefinition($containerBuilder->getByType(Application::class));
+		foreach ($containerBuilder->findByType(AbstractCommand::class) as $name => $commandDefinition) {
+			$applicationDefinition->addSetup('add', ['@' . $name]);
 		}
 	}
 
