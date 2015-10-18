@@ -11,7 +11,7 @@ use Doctrine\DBAL\Migrations\OutputWriter as DoctrineOutputWriter;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 
-class OutputWriter extends DoctrineOutputWriter
+final class OutputWriter extends DoctrineOutputWriter
 {
 
 	/**

@@ -15,7 +15,7 @@ use Symfony\Component\Console\Application;
 use Zenify\DoctrineMigrations\CodeStyle\CodeStyle;
 
 
-class MigrationsExtension extends CompilerExtension
+final class MigrationsExtension extends CompilerExtension
 {
 
 	/**

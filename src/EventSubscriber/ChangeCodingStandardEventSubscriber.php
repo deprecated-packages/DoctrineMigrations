@@ -14,7 +14,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Zenify\DoctrineMigrations\Contract\CodeStyle\CodeStyleInterface;
 
 
-class ChangeCodingStandardEventSubscriber implements EventSubscriberInterface
+final class ChangeCodingStandardEventSubscriber implements EventSubscriberInterface
 {
 
 	/**
