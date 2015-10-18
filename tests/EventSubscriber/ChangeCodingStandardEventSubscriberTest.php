@@ -7,7 +7,6 @@ use PHPUnit_Framework_TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Tracy\Logger;
 use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 
 
