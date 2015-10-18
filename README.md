@@ -42,7 +42,7 @@ migrations:
 		- %appDir%/../migrations/2014
 		- %appDir%/../migrations/setup
 	namespace: Migrations # namespace of migration classes
-	codingStandard: tabs # or "spaces", cs for generated classes
+	codingStandard: tabs # or "spaces", coding style for generated classes
 ```
 
 
