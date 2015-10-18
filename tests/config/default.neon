@@ -2,6 +2,10 @@ application:
 	scanComposer: FALSE
 
 
+services:
+	- Zenify\DoctrineMigrations\Tests\Configuration\ConfigurationSource\SomeService
+
+
 extensions:
 	- Kdyby\Annotations\DI\AnnotationsExtension
 	- Kdyby\Console\DI\ConsoleExtension

@@ -73,3 +73,35 @@ php www/index.php migrations:migrate -h
 
 
 For further use, please check [docs in Symfony bundle](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html).
+
+
+## Features
+
+
+### Injected migrations
+
+Note: this is not really best practise, so try to use it only if there is no other way.
+
+```php
+namespace Migrations;
+
+
+final class Version20140801152432 extends AbstractMigration
+{
+
+	/**
+	 * @inject
+	 * @var Doctrine\ORM\EntityManagerInterface
+	 */
+	public $entityManager;
+
+
+	public function up(Schema $schema)
+	{
+		// ...
+	}
+
+	// ...
+
+}
+```

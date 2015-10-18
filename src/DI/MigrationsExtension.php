@@ -8,11 +8,11 @@
 namespace Zenify\DoctrineMigrations\DI;
 
 use Assert\Assertion;
-use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand;
 use Nette\DI\CompilerExtension;
 use Symfony\Component\Console\Application;
 use Zenify\DoctrineMigrations\CodeStyle\CodeStyle;
+use Zenify\DoctrineMigrations\Configuration\Configuration;
 
 
 final class MigrationsExtension extends CompilerExtension
