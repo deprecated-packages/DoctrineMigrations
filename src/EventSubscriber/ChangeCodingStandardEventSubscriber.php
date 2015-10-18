@@ -8,13 +8,13 @@
 namespace Zenify\DoctrineMigrations\EventSubscriber;
 
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
+use Kdyby\Events\Subscriber;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Zenify\DoctrineMigrations\Contract\CodeStyle\CodeStyleInterface;
 
 
-final class ChangeCodingStandardEventSubscriber implements EventSubscriberInterface
+final class ChangeCodingStandardEventSubscriber implements Subscriber
 {
 
 	/**
@@ -38,7 +38,7 @@ final class ChangeCodingStandardEventSubscriber implements EventSubscriberInterf
 	/**
 	 * {@inheritdoc}
 	 */
-	public static function getSubscribedEvents()
+	public function getSubscribedEvents()
 	{
 		return [ConsoleEvents::TERMINATE => 'applyCodingStyle'];
 	}
