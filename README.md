@@ -59,8 +59,11 @@ And then you should see all available commands:
 ![CLI commands](cli-commands.png)
 
 
-And then you can run any command you need, e.g. migrate command:
 
+### Migrate changes to database
+
+If you want to migrate existing migration to your database, just run migrate commmand:
+ 
 ```sh
 php www/index.php migrations:migrate
 ```
@@ -70,6 +73,52 @@ If you get lost, just use `-h` option for help:
 ```sh
 php www/index.php migrations:migrate -h
 ```
+
+### Create new migration
+
+To create new empty migration, just run:
+
+```sh
+php www/index.php migrations:generate
+```
+
+A new call will be created at your migrations directory. You can add your sql there then.
+
+Migration that would add new role `superadmin` to `user_role` table would look like this:
+
+```php
+namespace Migrations;
+
+use Doctrine\DBAL\Migrations\AbstractMigration;
+use Doctrine\DBAL\Schema\Schema;
+
+
+/**
+ * New role "superadmin" added.
+ */
+class Version20140801000003 extends AbstractMigration
+{
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function up(Schema $schema)
+	{
+		$this->addSql("INSERT INTO 'user_role' (id, value, name) VALUES (3, 'superadmin', 'Super Admin')");
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function down(Schema $schema)
+	{
+		$this->addSql("DELETE FROM 'user_role' WHERE ('id' = 3);");
+	}
+
+}
+```
+
+Simple as that!
 
 
 For further use, please check [docs in Symfony bundle](http://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html).
