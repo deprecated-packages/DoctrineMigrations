@@ -82,9 +82,9 @@ To create new empty migration, just run:
 php www/index.php migrations:generate
 ```
 
-A new call will be created at your migrations directory. You can add your sql there then.
+A new empty migration will be created at your migrations directory. You can add your sql there then.
 
-Migration that would add new role `superadmin` to `user_role` table would look like this:
+Migration that would add new role `"superadmin"` to `user_role` table would look like this:
 
 ```php
 namespace Migrations;
@@ -96,7 +96,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * New role "superadmin" added.
  */
-class Version20140801000003 extends AbstractMigration
+final class Version20151015000003 extends AbstractMigration
 {
 
 	/**
@@ -106,6 +106,7 @@ class Version20140801000003 extends AbstractMigration
 	{
 		$this->addSql("INSERT INTO 'user_role' (id, value, name) VALUES (3, 'superadmin', 'Super Admin')");
 	}
+	
 
 	/**
 	 * {@inheritdoc}
