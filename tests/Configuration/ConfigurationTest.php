@@ -43,4 +43,13 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
 		$this->assertInstanceOf(SomeService::class, $migration->someService);
 	}
 
+
+	public function testCreateDirectoryOnSet()
+	{
+		$migrationsDir = TEMP_DIR . '/migrations';
+		$this->assertFileNotExists($migrationsDir);
+		$this->configuration->setMigrationsDirectory($migrationsDir);
+		$this->assertFileExists($migrationsDir);
+	}
+
 }
