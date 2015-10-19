@@ -6,6 +6,7 @@ use Assert\InvalidArgumentException;
 use Nette\DI\Compiler;
 use Nette\DI\ContainerBuilder;
 use PHPUnit_Framework_TestCase;
+use Zenify\DoctrineMigrations\Configuration\Configuration;
 use Zenify\DoctrineMigrations\DI\MigrationsExtension;
 
 
@@ -27,35 +28,14 @@ class LoadConfigurationTest extends PHPUnit_Framework_TestCase
 	}
 
 
-	public function testTableAssertion()
+	public function testLoadConfiguration()
 	{
-		$this->setExpectedException(InvalidArgumentException::class);
-		$this->extension->setConfig(['table' => 123]);
 		$this->extension->loadConfiguration();
-	}
+		$containerBuilder = $this->extension->getContainerBuilder();
+		$containerBuilder->prepareClassList();
 
-
-	public function testNamespaceAssertion()
-	{
-		$this->setExpectedException(InvalidArgumentException::class);
-		$this->extension->setConfig(['namespace' => 123]);
-		$this->extension->loadConfiguration();
-	}
-
-
-	public function testDirsAssertion()
-	{
-		$this->setExpectedException(InvalidArgumentException::class);
-		$this->extension->setConfig(['dirs' => 123]);
-		$this->extension->loadConfiguration();
-	}
-
-
-	public function testCodingStandardAssertion()
-	{
-		$this->setExpectedException(InvalidArgumentException::class);
-		$this->extension->setConfig(['codingStandard' => 123]);
-		$this->extension->loadConfiguration();
+		$configurationDefinition = $containerBuilder->getDefinition($containerBuilder->getByType(Configuration::class));
+		$this->assertSame(Configuration::class, $configurationDefinition->getClass());
 	}
 
 }

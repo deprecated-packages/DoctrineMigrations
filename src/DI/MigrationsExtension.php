@@ -72,18 +72,7 @@ final class MigrationsExtension extends CompilerExtension
 			$config['dirs'] = [$containerBuilder->expand('%appDir%/../migrations')];
 		}
 
-		$this->validateConfigTypes($config);
-
 		return $config;
-	}
-
-
-	private function validateConfigTypes(array $config)
-	{
-		Assertion::string($config['table']);
-		Assertion::isArray($config['dirs']);
-		Assertion::string($config['namespace']);
-		Assertion::string($config['codingStandard']);
 	}
 
 
