@@ -46,4 +46,25 @@ final class Configuration extends BaseConfiguration
 		return $version;
 	}
 
+
+	/**
+	 * @param string $directory
+	 */
+	public function setMigrationsDirectory($directory)
+	{
+		$this->createDirectoryIfNotExists($directory);
+		parent::setMigrationsDirectory($directory);
+	}
+
+
+	/**
+	 * @param string $directory
+	 */
+	private function createDirectoryIfNotExists($directory)
+	{
+		if ( ! file_exists($directory)) {
+			mkdir($directory, 0755, TRUE);
+		}
+	}
+
 }
