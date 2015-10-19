@@ -3,7 +3,6 @@
 namespace Zenify\DoctrineMigrations\Tests\Migrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
-use Doctrine\DBAL\Migrations\Version;
 use Doctrine\DBAL\Schema\Schema;
 use Zenify\DoctrineMigrations\Tests\Configuration\ConfigurationSource\SomeService;
 
