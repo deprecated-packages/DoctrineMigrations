@@ -7,7 +7,6 @@
 
 namespace Zenify\DoctrineMigrations\DI;
 
-use Assert\Assertion;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand;
 use Nette\DI\CompilerExtension;
 use Symfony\Component\Console\Application;
@@ -35,7 +34,7 @@ final class MigrationsExtension extends CompilerExtension
 	public function loadConfiguration()
 	{
 		$containerBuilder = $this->getContainerBuilder();
-		$services = $this->loadFromFile(__DIR__ . '/../config/services/services.neon');
+		$services = $this->loadFromFile(__DIR__ . '/../config/services.neon');
 		$this->compiler->parseServices($containerBuilder, $services);
 
 		$config = $this->getValidatedConfig($this->defaults);
