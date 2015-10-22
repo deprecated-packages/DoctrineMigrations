@@ -109,7 +109,7 @@ final class MigrationsExtension extends CompilerExtension
 
 
 	/**
-	 * @deprecated To be removed in 3.0.
+	 * @deprecated Old `dirs` option to be removed in 3.0, use `directory` instead.
 	 *
 	 * @return array
 	 */
