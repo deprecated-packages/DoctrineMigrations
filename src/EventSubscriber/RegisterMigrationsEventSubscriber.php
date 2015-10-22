@@ -29,6 +29,7 @@ final class RegisterMigrationsEventSubscriber implements Subscriber
 		$this->configuration = $configuration;
 	}
 
+
 	/**
 	 * {@inheritdoc}
 	 */

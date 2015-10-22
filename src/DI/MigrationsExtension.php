@@ -96,6 +96,7 @@ final class MigrationsExtension extends CompilerExtension
 		}
 	}
 
+
 	/**
 	 * @return array
 	 */
