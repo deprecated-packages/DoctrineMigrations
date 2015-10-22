@@ -48,7 +48,7 @@ final class Configuration extends BaseConfiguration
 
 
 	/**
-	 * @param string $directory
+	 * {@inheritdoc}
 	 */
 	public function setMigrationsDirectory($directory)
 	{

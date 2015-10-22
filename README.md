@@ -37,10 +37,7 @@ extensions:
 ```yaml
 migrations:
 	table: doctrine_migrations # database table for applied migrations
-	dirs: # list of dirs to load migrations from
-		- %appDir%/../migrations # first dir is used for generating migrations
-		- %appDir%/../migrations/2014
-		- %appDir%/../migrations/setup
+	directory: %appDir%/../migrations # directory, where all migrations are stored
 	namespace: Migrations # namespace of migration classes
 	codingStandard: tabs # or "spaces", coding style for generated classes
 ```
@@ -126,6 +123,21 @@ For further use, please check [docs in Symfony bundle](http://symfony.com/doc/cu
 
 
 ## Features
+
+### Cleanup your directories
+
+If you have over 100 migrations in one directory, it might get messy. How to make it nicer? You can create a subdirectory and move some migrations there. I would group them up by year or by purpose. All subdirectories of `directory` you set up in configuration will be scanned.
+ 
+ It can look like this:
+ 
+ ```
+ /migrations/
+    - VersionZZZ.php
+ /migrations/2015/
+    - VersionYYY.php
+ /migrations/basic-data
+    - VersionXXXX.php
+```
 
 
 ### Injected migrations

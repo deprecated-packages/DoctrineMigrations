@@ -22,7 +22,8 @@ final class MigrationsExtension extends CompilerExtension
 	 */
 	private $defaults = [
 		'table' => 'doctrine_migrations',
-		'dirs' => [],
+		'directory' => '%appDir%/../migrations',
+		'dirs' => [], // deprecated, for BC, to be removed in version 3.0
 		'namespace' => 'Migrations',
 		'codingStandard' => CodeStyle::INDENTATION_TABS
 	];
@@ -34,10 +35,14 @@ final class MigrationsExtension extends CompilerExtension
 	public function loadConfiguration()
 	{
 		$containerBuilder = $this->getContainerBuilder();
-		$services = $this->loadFromFile(__DIR__ . '/../config/services.neon');
-		$this->compiler->parseServices($containerBuilder, $services);
 
-		$config = $this->getValidatedConfig($this->defaults);
+		$this->compiler->parseServices(
+			$containerBuilder,
+			$this->loadFromFile(__DIR__ . '/../config/services.neon')
+		);
+
+		$config = $this->getConfig($this->defaults);
+		$config = $this->getValidatedConfig($config);
 
 		$containerBuilder->addDefinition($this->prefix('codeStyle'))
 			->setClass(CodeStyle::class)
@@ -60,35 +65,15 @@ final class MigrationsExtension extends CompilerExtension
 	}
 
 
-	/**
-	 * @return array
-	 */
-	private function getValidatedConfig(array $defaults)
-	{
-		$config = parent::getConfig($defaults);
-		if (count($config['dirs']) === 0) {
-			$containerBuilder = $this->getContainerBuilder();
-			$config['dirs'] = [$containerBuilder->expand('%appDir%/../migrations')];
-		}
-
-		return $config;
-	}
-
-
 	private function addConfigurationDefinition(array $config)
 	{
 		$containerBuilder = $this->getContainerBuilder();
 
-		$configurationDefinition = $containerBuilder->addDefinition($this->prefix('configuration'))
+		$containerBuilder->addDefinition($this->prefix('configuration'))
 			->setClass(Configuration::class)
 			->addSetup('setMigrationsTableName', [$config['table']])
-			->addSetup('setMigrationsDirectory', [reset($config['dirs'])])
+			->addSetup('setMigrationsDirectory', [$config['directory']])
 			->addSetup('setMigrationsNamespace', [$config['namespace']]);
-
-		$dirs = array_unique($config['dirs']);
-		foreach ($dirs as $dir) {
-			$configurationDefinition->addSetup('registerMigrationsFromDirectory', [$dir]);
-		}
 	}
 
 
@@ -110,6 +95,31 @@ final class MigrationsExtension extends CompilerExtension
 		foreach ($containerBuilder->findByType(AbstractCommand::class) as $name => $commandDefinition) {
 			$applicationDefinition->addSetup('add', ['@' . $name]);
 		}
+	}
+
+	/**
+	 * @return array
+	 */
+	private function getValidatedConfig(array $configuration)
+	{
+		$this->validateConfig($configuration);
+		$configuration = $this->keepBcForDirsOption($configuration);
+		$configuration['directory'] = $this->getContainerBuilder()->expand($configuration['directory']);
+		return $configuration;
+	}
+
+
+	/**
+	 * @deprecated To be removed in 3.0.
+	 *
+	 * @return array
+	 */
+	private function keepBcForDirsOption(array $configuration)
+	{
+		if (isset($configuration['dirs']) && count($configuration['dirs'])) {
+			$configuration['directory'] = reset($configuration['dirs']);
+		}
+		return $configuration;
 	}
 
 }

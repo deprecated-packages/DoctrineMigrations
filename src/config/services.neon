@@ -1,6 +1,7 @@
 services:
 	- Zenify\DoctrineMigrations\OutputWriter
 	- {class: Zenify\DoctrineMigrations\EventSubscriber\ChangeCodingStandardEventSubscriber, tags: [kdyby.subscriber]}
+	- {class: Zenify\DoctrineMigrations\EventSubscriber\RegisterMigrationsEventSubscriber, tags: [kdyby.subscriber]}
 
 	# commands
 	- Doctrine\DBAL\Migrations\Tools\Console\Command\ExecuteCommand

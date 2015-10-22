@@ -24,6 +24,10 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
 	{
 		$container = (new ContainerFactory)->create();
 		$this->configuration = $container->getByType(Configuration::class);
+
+		$this->configuration->registerMigrationsFromDirectory(
+			$this->configuration->getMigrationsDirectory()
+		);
 	}
 
 
@@ -50,6 +54,13 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
 		$this->assertFileNotExists($migrationsDir);
 		$this->configuration->setMigrationsDirectory($migrationsDir);
 		$this->assertFileExists($migrationsDir);
+	}
+
+
+	public function testLoadMigrationsFromSubdirs()
+	{
+		$migrations = $this->configuration->getMigrations();
+		$this->assertCount(2, $migrations);
 	}
 
 }
