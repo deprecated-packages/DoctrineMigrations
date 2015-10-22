@@ -18,12 +18,11 @@ final class MigrationsExtension extends CompilerExtension
 {
 
 	/**
-	 * @var mixed[]
+	 * @var string[]
 	 */
 	private $defaults = [
 		'table' => 'doctrine_migrations',
 		'directory' => '%appDir%/../migrations',
-		'dirs' => [], // deprecated, for BC, to be removed in version 3.0
 		'namespace' => 'Migrations',
 		'codingStandard' => CodeStyle::INDENTATION_TABS
 	];
