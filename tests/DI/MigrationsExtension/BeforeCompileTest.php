@@ -9,11 +9,12 @@ use Nette\DI\ServiceDefinition;
 use Nette\DI\Statement;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\Console\Application;
+use Symnedi\EventDispatcher\DI\EventDispatcherExtension;
 use Zenify\DoctrineMigrations\Configuration\Configuration;
 use Zenify\DoctrineMigrations\DI\MigrationsExtension;
 
 
-class BeforeCompileTest extends PHPUnit_Framework_TestCase
+final class BeforeCompileTest extends PHPUnit_Framework_TestCase
 {
 
 	/**
@@ -35,7 +36,10 @@ class BeforeCompileTest extends PHPUnit_Framework_TestCase
 		$this->containerBuilder->parameters = ['appDir' => __DIR__];
 		$this->containerBuilder->addDefinition('console', (new ServiceDefinition)->setClass(Application::class));
 
-		$this->extension->setCompiler(new Compiler($this->containerBuilder), 'migrations');
+		$compiler = new Compiler($this->containerBuilder);
+		$compiler->addExtension('eventDispatcher', new EventDispatcherExtension);
+
+		$this->extension->setCompiler($compiler, 'migrations');
 		$this->extension->loadConfiguration();
 		$this->extension->beforeCompile();
 

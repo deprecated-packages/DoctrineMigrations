@@ -11,8 +11,6 @@ Implementation of [Doctrine\Migrations](http://docs.doctrine-project.org/project
 
 ## Install
 
-Install via Composer:
-
 ```sh
 composer require zenify/doctrine-migrations
 ```
@@ -22,10 +20,9 @@ Register extensions in `config.neon`:
 ```yaml
 extensions:
 	migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
+	- Symnedi\EventDispatcher\DI\EventDispatcherExtension
+
 	# Kdyby\Doctrine or another Doctrine integration
-	- Kdyby\Annotations\DI\AnnotationsExtension
-    - Kdyby\Console\DI\ConsoleExtension
-    - Kdyby\Events\DI\EventsExtension
     doctrine: Kdyby\Doctrine\DI\OrmExtension
 ```
 

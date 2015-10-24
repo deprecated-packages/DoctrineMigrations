@@ -6,6 +6,7 @@ use Assert\InvalidArgumentException;
 use Nette\DI\Compiler;
 use Nette\DI\ContainerBuilder;
 use PHPUnit_Framework_TestCase;
+use Symnedi\EventDispatcher\DI\EventDispatcherExtension;
 use Zenify\DoctrineMigrations\Configuration\Configuration;
 use Zenify\DoctrineMigrations\DI\MigrationsExtension;
 
@@ -21,10 +22,14 @@ class LoadConfigurationTest extends PHPUnit_Framework_TestCase
 
 	protected function setUp()
 	{
-		$this->extension = new MigrationsExtension;
 		$containerBuilder = new ContainerBuilder;
 		$containerBuilder->parameters = ['appDir' => __DIR__];
-		$this->extension->setCompiler(new Compiler($containerBuilder), 'migrations');
+
+		$compiler = new Compiler($containerBuilder);
+		$compiler->addExtension('events', new EventDispatcherExtension);
+
+		$this->extension = new MigrationsExtension;
+		$this->extension->setCompiler($compiler, 'migrations');
 	}
 
 

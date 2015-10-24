@@ -9,13 +9,13 @@ namespace Zenify\DoctrineMigrations\EventSubscriber;
 
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand;
-use Kdyby\Events\Subscriber;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 
-final class RegisterMigrationsEventSubscriber implements Subscriber
+final class RegisterMigrationsEventSubscriber implements EventSubscriberInterface
 {
 
 	/**
@@ -33,7 +33,7 @@ final class RegisterMigrationsEventSubscriber implements Subscriber
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getSubscribedEvents()
+	public static function getSubscribedEvents()
 	{
 		return [ConsoleEvents::COMMAND => 'registerMigrations'];
 	}
