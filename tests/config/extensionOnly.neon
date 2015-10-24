@@ -1,0 +1,6 @@
+application:
+	scanComposer: FALSE
+
+
+extensions:
+	- Zenify\DoctrineMigrations\DI\MigrationsExtension

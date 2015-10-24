@@ -10,8 +10,10 @@ namespace Zenify\DoctrineMigrations\DI;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand;
 use Nette\DI\CompilerExtension;
 use Symfony\Component\Console\Application;
+use Symnedi\EventDispatcher\DI\EventDispatcherExtension;
 use Zenify\DoctrineMigrations\CodeStyle\CodeStyle;
 use Zenify\DoctrineMigrations\Configuration\Configuration;
+use Zenify\DoctrineMigrations\Exception\DI\MissingExtensionException;
 
 
 final class MigrationsExtension extends CompilerExtension
@@ -33,6 +35,8 @@ final class MigrationsExtension extends CompilerExtension
 	 */
 	public function loadConfiguration()
 	{
+		$this->ensureSymnediEventDispatcherExtensionIsRegistered();
+
 		$containerBuilder = $this->getContainerBuilder();
 
 		$this->compiler->parseServices(
@@ -40,8 +44,7 @@ final class MigrationsExtension extends CompilerExtension
 			$this->loadFromFile(__DIR__ . '/../config/services.neon')
 		);
 
-		$config = $this->getConfig($this->defaults);
-		$config = $this->getValidatedConfig($config);
+		$config = $this->getValidatedConfig();
 
 		$containerBuilder->addDefinition($this->prefix('codeStyle'))
 			->setClass(CodeStyle::class)
@@ -67,7 +70,6 @@ final class MigrationsExtension extends CompilerExtension
 	private function addConfigurationDefinition(array $config)
 	{
 		$containerBuilder = $this->getContainerBuilder();
-
 		$containerBuilder->addDefinition($this->prefix('configuration'))
 			->setClass(Configuration::class)
 			->addSetup('setMigrationsTableName', [$config['table']])
@@ -100,11 +102,14 @@ final class MigrationsExtension extends CompilerExtension
 	/**
 	 * @return array
 	 */
-	private function getValidatedConfig(array $configuration)
+	private function getValidatedConfig()
 	{
+		$configuration = $this->getConfig($this->defaults);
 		$this->validateConfig($configuration);
+
 		$configuration = $this->keepBcForDirsOption($configuration);
 		$configuration['directory'] = $this->getContainerBuilder()->expand($configuration['directory']);
+
 		return $configuration;
 	}
 
@@ -120,6 +125,16 @@ final class MigrationsExtension extends CompilerExtension
 			$configuration['directory'] = reset($configuration['dirs']);
 		}
 		return $configuration;
+	}
+
+
+	private function ensureSymnediEventDispatcherExtensionIsRegistered()
+	{
+		if ( ! $this->compiler->getExtensions(EventDispatcherExtension::class)) {
+			throw new MissingExtensionException(
+				sprintf('Please register required extension "%s" to your config.', EventDispatcherExtension::class)
+			);
+		}
 	}
 
 }

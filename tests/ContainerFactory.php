@@ -6,7 +6,7 @@ use Nette\Configurator;
 use Nette\DI\Container;
 
 
-class ContainerFactory
+final class ContainerFactory
 {
 
 	/**
@@ -14,10 +14,19 @@ class ContainerFactory
 	 */
 	public function create()
 	{
+		return $this->createWithConfig(__DIR__ . '/config/default.neon');
+	}
+
+
+	/**
+	 * @return Container
+	 */
+	public function createWithConfig($config)
+	{
 		$configurator = new Configurator;
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->enableDebugger(TEMP_DIR . '/log');
-		$configurator->addConfig(__DIR__ . '/config/default.neon');
+		$configurator->addConfig($config);
 		return $configurator->createContainer();
 	}
 

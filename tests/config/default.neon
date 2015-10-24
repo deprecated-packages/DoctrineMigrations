@@ -9,9 +9,11 @@ services:
 extensions:
 	- Kdyby\Annotations\DI\AnnotationsExtension
 	- Kdyby\Console\DI\ConsoleExtension
-	- Kdyby\Events\DI\EventsExtension
 	doctrine: Kdyby\Doctrine\DI\OrmExtension
 	migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
+
+	- Kdyby\Events\DI\EventsExtension
+	- Symnedi\EventDispatcher\DI\EventDispatcherExtension
 
 
 doctrine:
@@ -23,5 +25,4 @@ doctrine:
 
 migrations:
 	namespace: Zenify\DoctrineMigrations\Tests\Migrations
-	dirs:
-		- %appDir%/Migrations
+	directory: %appDir%/Migrations
