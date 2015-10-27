@@ -2,16 +2,20 @@
 
 namespace Zenify\DoctrineMigrations\Tests\Configuration;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use Doctrine\DBAL\Migrations\Version;
+use Nette\DI\Container;
 use PHPUnit_Framework_TestCase;
+use Zenify\DoctrineMigrations\Configuration\Configuration as ZenifyConfiguration;
+use Zenify\DoctrineMigrations\Exception\Configuration\MigrationClassNotFoundException;
 use Zenify\DoctrineMigrations\Tests\Configuration\ConfigurationSource\SomeService;
 use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 use Zenify\DoctrineMigrations\Tests\Migrations\Version123;
 
 
-class ConfigurationTest extends PHPUnit_Framework_TestCase
+final class ConfigurationTest extends PHPUnit_Framework_TestCase
 {
 
 	/**
@@ -62,5 +66,24 @@ class ConfigurationTest extends PHPUnit_Framework_TestCase
 		$migrations = $this->configuration->getMigrations();
 		$this->assertCount(2, $migrations);
 	}
+
+
+	public function testRegisterMigrationsClassExistCheck()
+    {
+        $migrationsDir = __DIR__ . '/ConfigurationSource/Migrations';
+
+	    $connectionMock = $this->prophesize(Connection::class);
+	    $containerMock = $this->prophesize(Container::class);
+
+	    $configuration = new ZenifyConfiguration($containerMock->reveal(), $connectionMock->reveal());
+
+        $configuration->setMigrationsNamespace('Migrations');
+	    $configuration->setMigrationsDirectory($migrationsDir);
+
+        $this->setExpectedException(
+	        MigrationClassNotFoundException::class,
+            'Migration class "Migrations\Version789" was not found. Is it placed in "Migrations" namespace?');
+        $configuration->registerMigrationsFromDirectory($migrationsDir);
+    }
 
 }
