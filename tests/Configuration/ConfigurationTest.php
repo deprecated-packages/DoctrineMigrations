@@ -69,21 +69,22 @@ final class ConfigurationTest extends PHPUnit_Framework_TestCase
 
 
 	public function testRegisterMigrationsClassExistCheck()
-    {
-        $migrationsDir = __DIR__ . '/ConfigurationSource/Migrations';
+	{
+		$migrationsDir = __DIR__ . '/ConfigurationSource/Migrations';
 
-	    $connectionMock = $this->prophesize(Connection::class);
-	    $containerMock = $this->prophesize(Container::class);
+		$connectionMock = $this->prophesize(Connection::class);
+		$containerMock = $this->prophesize(Container::class);
 
-	    $configuration = new ZenifyConfiguration($containerMock->reveal(), $connectionMock->reveal());
+		$configuration = new ZenifyConfiguration($containerMock->reveal(), $connectionMock->reveal());
 
-        $configuration->setMigrationsNamespace('Migrations');
-	    $configuration->setMigrationsDirectory($migrationsDir);
+		$configuration->setMigrationsNamespace('Migrations');
+		$configuration->setMigrationsDirectory($migrationsDir);
 
-        $this->setExpectedException(
-	        MigrationClassNotFoundException::class,
-            'Migration class "Migrations\Version789" was not found. Is it placed in "Migrations" namespace?');
-        $configuration->registerMigrationsFromDirectory($migrationsDir);
-    }
+		$this->setExpectedException(
+			MigrationClassNotFoundException::class,
+			'Migration class "Migrations\Version789" was not found. Is it placed in "Migrations" namespace?'
+		);
+		$configuration->registerMigrationsFromDirectory($migrationsDir);
+	}
 
 }
