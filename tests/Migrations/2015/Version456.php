@@ -6,7 +6,7 @@ use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
 
-final class Version546 extends AbstractMigration
+final class Version456 extends AbstractMigration
 {
 
 	/**
@@ -14,6 +14,7 @@ final class Version546 extends AbstractMigration
 	 */
 	public function up(Schema $schema)
 	{
+		$this->addSql('CREATE TABLE "product" ( "id" integer NOT NULL );');
 	}
 
 

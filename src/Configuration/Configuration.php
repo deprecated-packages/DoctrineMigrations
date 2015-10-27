@@ -11,15 +11,16 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Migrations\Configuration\Configuration as BaseConfiguration;
 use Doctrine\DBAL\Migrations\OutputWriter;
 use Nette\DI\Container;
+use Zenify\DoctrineMigrations\Exception\Configuration\MigrationClassNotFoundException;
 
 
 final class Configuration extends BaseConfiguration
 {
 
-	public function __construct(Connection $connection, OutputWriter $outputWriter, Container $container)
+	public function __construct(Container $container, Connection $connection, OutputWriter $outputWriter = NULL)
 	{
-		parent::__construct($connection, $outputWriter);
 		$this->container = $container;
+		parent::__construct($connection, $outputWriter);
 	}
 
 
@@ -58,12 +59,39 @@ final class Configuration extends BaseConfiguration
 
 
 	/**
+	 * {@inheritdoc}
+	 */
+	public function registerMigration($version, $class)
+	{
+		$this->ensureMigrationClassExists($class);
+		parent::registerMigration($version, $class);
+	}
+
+
+	/**
 	 * @param string $directory
 	 */
 	private function createDirectoryIfNotExists($directory)
 	{
 		if ( ! file_exists($directory)) {
 			mkdir($directory, 0755, TRUE);
+		}
+	}
+
+
+	/**
+	 * @param string $class
+	 */
+	private function ensureMigrationClassExists($class)
+	{
+		if ( ! class_exists($class)) {
+			throw new MigrationClassNotFoundException(
+				sprintf(
+					'Migration class "%s" was not found. Is it placed in "%s" namespace?',
+					$class,
+					$this->getMigrationsNamespace()
+				)
+			);
 		}
 	}
 

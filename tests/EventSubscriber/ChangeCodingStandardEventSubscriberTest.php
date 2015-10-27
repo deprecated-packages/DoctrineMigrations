@@ -27,7 +27,6 @@ class ChangeCodingStandardEventSubscriberTest extends PHPUnit_Framework_TestCase
 		/** @var Configuration $configuration */
 		$configuration = $container->getByType(Configuration::class);
 		$configuration->setMigrationsDirectory($this->getMigrationsDirectory());
-		@mkdir($this->getMigrationsDirectory());
 	}
 
 
