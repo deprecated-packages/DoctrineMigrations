@@ -2,6 +2,7 @@ services:
 	- Zenify\DoctrineMigrations\OutputWriter
 	- Zenify\DoctrineMigrations\EventSubscriber\ChangeCodingStandardEventSubscriber
 	- Zenify\DoctrineMigrations\EventSubscriber\RegisterMigrationsEventSubscriber
+	- Zenify\DoctrineMigrations\EventSubscriber\SetConsoleOutputEventSubscriber
 
 	# commands
 	- Doctrine\DBAL\Migrations\Tools\Console\Command\ExecuteCommand

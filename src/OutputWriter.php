@@ -9,15 +9,22 @@ namespace Zenify\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\OutputWriter as DoctrineOutputWriter;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 
 final class OutputWriter extends DoctrineOutputWriter
 {
 
 	/**
-	 * @var ConsoleOutput
+	 * @var OutputInterface
 	 */
 	private $consoleOutput;
+
+
+	public function setConsoleOutput(OutputInterface $consoleOutput)
+	{
+		$this->consoleOutput = $consoleOutput;
+	}
 
 
 	/**
