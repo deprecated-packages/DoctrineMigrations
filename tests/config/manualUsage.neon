@@ -1,7 +1,3 @@
-application:
-	scanComposer: FALSE
-
-
 services:
 	- Zenify\DoctrineMigrations\Tests\Configuration\ConfigurationSource\SomeService
 

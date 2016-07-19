@@ -34,16 +34,17 @@ final class RegisterMigrationsEventSubscriberTest extends PHPUnit_Framework_Test
 	}
 
 
-	public function testDispatching()
+	public function testStatusCommand()
 	{
-		$this->assertSame(0, $this->configuration->getNumberOfAvailableMigrations());
-
 		$input = new ArrayInput(['command' => 'migrations:status']);
 		$output = new BufferedOutput;
 
 		$result = $this->application->run($input, $output);
 		$this->assertSame(0, $result);
+    }
 
+    public function testAvailableMigrations()
+	{
 		$this->assertSame(2, $this->configuration->getNumberOfAvailableMigrations());
 	}
 
