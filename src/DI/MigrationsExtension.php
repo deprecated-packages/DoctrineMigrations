@@ -106,24 +106,8 @@ final class MigrationsExtension extends CompilerExtension
 	{
 		$configuration = $this->getConfig($this->defaults);
 		$this->validateConfig($configuration);
-
-		$configuration = $this->keepBcForDirsOption($configuration);
 		$configuration['directory'] = $this->getContainerBuilder()->expand($configuration['directory']);
 
-		return $configuration;
-	}
-
-
-	/**
-	 * @deprecated Old `dirs` option to be removed in 3.0, use `directory` instead.
-	 *
-	 * @return array
-	 */
-	private function keepBcForDirsOption(array $configuration)
-	{
-		if (isset($configuration['dirs']) && count($configuration['dirs'])) {
-			$configuration['directory'] = reset($configuration['dirs']);
-		}
 		return $configuration;
 	}
 
