@@ -41,9 +41,10 @@ final class RegisterMigrationsEventSubscriberTest extends PHPUnit_Framework_Test
 
 		$result = $this->application->run($input, $output);
 		$this->assertSame(0, $result);
-    }
+	}
 
-    public function testAvailableMigrations()
+
+	public function testAvailableMigrations()
 	{
 		$this->assertSame(2, $this->configuration->getNumberOfAvailableMigrations());
 	}
