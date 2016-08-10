@@ -8,6 +8,7 @@
 namespace Zenify\DoctrineMigrations\EventSubscriber;
 
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
+use Doctrine\DBAL\Migrations\Tools\Console\Helper\MigrationDirectoryHelper;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -101,7 +102,8 @@ final class ChangeCodingStandardEventSubscriber implements EventSubscriberInterf
 	 */
 	private function getMigrationFileByVersion($version)
 	{
-		return $this->configuration->getMigrationsDirectory() . '/Version' . $version . '.php';
+		$migrationDirectoryHelper = new MigrationDirectoryHelper($this->configuration);
+		return $migrationDirectoryHelper->getMigrationDirectory() . '/Version' . $version . '.php';
 	}
 
 }
