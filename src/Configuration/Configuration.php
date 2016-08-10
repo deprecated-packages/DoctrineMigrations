@@ -59,39 +59,12 @@ final class Configuration extends BaseConfiguration
 
 
 	/**
-	 * {@inheritdoc}
-	 */
-	public function registerMigration($version, $class)
-	{
-		$this->ensureMigrationClassExists($class);
-		parent::registerMigration($version, $class);
-	}
-
-
-	/**
 	 * @param string $directory
 	 */
 	private function createDirectoryIfNotExists($directory)
 	{
 		if ( ! file_exists($directory)) {
 			mkdir($directory, 0755, TRUE);
-		}
-	}
-
-
-	/**
-	 * @param string $class
-	 */
-	private function ensureMigrationClassExists($class)
-	{
-		if ( ! class_exists($class)) {
-			throw new MigrationClassNotFoundException(
-				sprintf(
-					'Migration class "%s" was not found. Is it placed in "%s" namespace?',
-					$class,
-					$this->getMigrationsNamespace()
-				)
-			);
 		}
 	}
 
