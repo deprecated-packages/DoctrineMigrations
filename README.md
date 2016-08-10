@@ -12,6 +12,7 @@ Implementation of [Doctrine\Migrations](http://docs.doctrine-project.org/project
 ## Install
 
 ```sh
+composer require arachne/event-dispatcher
 composer require zenify/doctrine-migrations
 ```
 
@@ -19,11 +20,12 @@ Register extensions in `config.neon`:
 
 ```yaml
 extensions:
+	- Arachne\ContainerAdapter\DI\ContainerAdapterExtension
+	- Arachne\EventDispatcher\DI\EventDispatcherExtension
 	migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
-	- Symnedi\EventDispatcher\DI\EventDispatcherExtension
 
 	# Kdyby\Doctrine or another Doctrine integration
-    doctrine: Kdyby\Doctrine\DI\OrmExtension
+	doctrine: Kdyby\Doctrine\DI\OrmExtension
 ```
 
 
@@ -34,9 +36,11 @@ extensions:
 ```yaml
 migrations:
 	table: doctrine_migrations # database table for applied migrations
+	column: version # database column for applied migrations
 	directory: %appDir%/../migrations # directory, where all migrations are stored
 	namespace: Migrations # namespace of migration classes
 	codingStandard: tabs # or "spaces", coding style for generated classes
+	versionsOrganization: null # null, "year" or "year_and_month", organizes migrations to subdirectories
 ```
 
 
@@ -129,11 +133,11 @@ If you have over 100 migrations in one directory, it might get messy. How to mak
  
  ```
  /migrations/
-    - VersionZZZ.php
+	- VersionZZZ.php
  /migrations/2015/
-    - VersionYYY.php
+	- VersionYYY.php
  /migrations/basic-data
-    - VersionXXXX.php
+	- VersionXXXX.php
 ```
 
 
