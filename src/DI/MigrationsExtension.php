@@ -28,6 +28,7 @@ final class MigrationsExtension extends CompilerExtension
 	 */
 	private $defaults = [
 		'table' => 'doctrine_migrations',
+		'column' => 'version',
 		'directory' => '%appDir%/../migrations',
 		'namespace' => 'Migrations',
 		'codingStandard' => CodeStyle::INDENTATION_TABS,
@@ -107,6 +108,7 @@ final class MigrationsExtension extends CompilerExtension
 		$configurationDefinition
 			->setClass(Configuration::class)
 			->addSetup('setMigrationsTableName', [$config['table']])
+			->addSetup('setMigrationsColumnName', [$config['column']])
 			->addSetup('setMigrationsDirectory', [$config['directory']])
 			->addSetup('setMigrationsNamespace', [$config['namespace']]);
 
