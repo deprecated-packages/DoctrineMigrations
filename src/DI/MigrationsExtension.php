@@ -31,6 +31,7 @@ final class MigrationsExtension extends CompilerExtension
 		'directory' => '%appDir%/../migrations',
 		'namespace' => 'Migrations',
 		'codingStandard' => CodeStyle::INDENTATION_TABS,
+		'versionsOrganization' => NULL,
 	];
 
 	private $subscribers = [
@@ -102,11 +103,18 @@ final class MigrationsExtension extends CompilerExtension
 	private function addConfigurationDefinition(array $config)
 	{
 		$containerBuilder = $this->getContainerBuilder();
-		$containerBuilder->addDefinition($this->prefix('configuration'))
+		$configurationDefinition = $containerBuilder->addDefinition($this->prefix('configuration'));
+		$configurationDefinition
 			->setClass(Configuration::class)
 			->addSetup('setMigrationsTableName', [$config['table']])
 			->addSetup('setMigrationsDirectory', [$config['directory']])
 			->addSetup('setMigrationsNamespace', [$config['namespace']]);
+
+		if ($config['versionsOrganization'] === Configuration::VERSIONS_ORGANIZATION_BY_YEAR) {
+			$configurationDefinition->addSetup('setMigrationsAreOrganizedByYear');
+		} elseif ($config['versionsOrganization'] === Configuration::VERSIONS_ORGANIZATION_BY_YEAR_AND_MONTH) {
+			$configurationDefinition->addSetup('setMigrationsAreOrganizedByYearAndMonth');
+		}
 	}
 
 
