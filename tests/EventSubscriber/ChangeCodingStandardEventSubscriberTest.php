@@ -57,8 +57,8 @@ class ChangeCodingStandardEventSubscriberTest extends AbstractEventSubscriberTes
 
 		$migrationFile = $this->extractMigrationFile($outputContent);
 		$fileContents = file_get_contents($migrationFile);
-		$this->assertNotContains('	', $fileContents);
-		$this->assertContains(' ', $fileContents);
+		$this->assertNotContains('    ', $fileContents);
+		$this->assertContains("\t", $fileContents);
 	}
 
 
