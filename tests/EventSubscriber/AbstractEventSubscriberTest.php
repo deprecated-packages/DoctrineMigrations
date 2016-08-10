@@ -8,7 +8,7 @@ use Symfony\Component\Console\Application;
 use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 
 
-abstract class EventSubscriberTest extends PHPUnit_Framework_TestCase
+abstract class AbstractEventSubscriberTest extends PHPUnit_Framework_TestCase
 {
 
 	/**
@@ -27,6 +27,11 @@ abstract class EventSubscriberTest extends PHPUnit_Framework_TestCase
 	protected $application;
 
 
+	/**
+	 * @param string $name
+	 * @param array $data
+	 * @param string $dataName
+	 */
 	public function __construct($name = NULL, array $data = [], $dataName = '')
 	{
 		parent::__construct($name, $data, $dataName);
@@ -37,6 +42,8 @@ abstract class EventSubscriberTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * Data provider for all tests.
+	 *
+	 * @return string[]
 	 */
 	public function getConfigFiles()
 	{
@@ -45,6 +52,7 @@ abstract class EventSubscriberTest extends PHPUnit_Framework_TestCase
 			[__DIR__ . '/../config/symnedi.neon'],
 		];
 	}
+
 
 	protected function setUp()
 	{

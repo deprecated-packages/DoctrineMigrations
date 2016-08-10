@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Zenify\DoctrineMigrations\OutputWriter;
 
 
-final class SetConsoleOutputEventSubscriberTest extends EventSubscriberTest
+final class SetConsoleOutputEventSubscriberTest extends AbstractEventSubscriberTest
 {
 
 	/**

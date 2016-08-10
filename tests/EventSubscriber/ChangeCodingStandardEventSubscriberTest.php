@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 
-class ChangeCodingStandardEventSubscriberTest extends EventSubscriberTest
+class ChangeCodingStandardEventSubscriberTest extends AbstractEventSubscriberTest
 {
 
 	protected function setUp()

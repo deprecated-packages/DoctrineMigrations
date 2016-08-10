@@ -35,6 +35,9 @@ final class MigrationsExtension extends CompilerExtension
 		'versionsOrganization' => NULL,
 	];
 
+	/**
+	 * @var string[]
+	 */
 	private $subscribers = [
 		ChangeCodingStandardEventSubscriber::class,
 		RegisterMigrationsEventSubscriber::class,
@@ -56,12 +59,14 @@ final class MigrationsExtension extends CompilerExtension
 
 		if ($this->compiler->getExtensions(EventDispatcherExtension::class)) {
 			$tag = EventDispatcherExtension::TAG_SUBSCRIBER;
+
 		} elseif ($this->compiler->getExtensions(SymnediEventDispatcherExtension::class)) {
 			$tag = NULL;
+
 		} else {
 			throw new MissingExtensionException(
 				sprintf(
-					'Please register required extension "%s" to your config. For now "%s" is also supported but is considered deprecated.',
+					'Please register required extension "%s" to your config. For now "%s" is also supported.',
 					EventDispatcherExtension::class,
 					SymnediEventDispatcherExtension::class
 				)
@@ -114,6 +119,7 @@ final class MigrationsExtension extends CompilerExtension
 
 		if ($config['versionsOrganization'] === Configuration::VERSIONS_ORGANIZATION_BY_YEAR) {
 			$configurationDefinition->addSetup('setMigrationsAreOrganizedByYear');
+
 		} elseif ($config['versionsOrganization'] === Configuration::VERSIONS_ORGANIZATION_BY_YEAR_AND_MONTH) {
 			$configurationDefinition->addSetup('setMigrationsAreOrganizedByYearAndMonth');
 		}

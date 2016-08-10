@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 
-final class RegisterMigrationsEventSubscriberTest extends EventSubscriberTest
+final class RegisterMigrationsEventSubscriberTest extends AbstractEventSubscriberTest
 {
 
 	/**
