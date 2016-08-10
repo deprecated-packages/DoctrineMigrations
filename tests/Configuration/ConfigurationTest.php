@@ -52,15 +52,6 @@ final class ConfigurationTest extends PHPUnit_Framework_TestCase
 	}
 
 
-	public function testCreateDirectoryOnSet()
-	{
-		$migrationsDir = TEMP_DIR . '/migrations';
-		$this->assertFileNotExists($migrationsDir);
-		$this->configuration->setMigrationsDirectory($migrationsDir);
-		$this->assertFileExists($migrationsDir);
-	}
-
-
 	public function testLoadMigrationsFromSubdirs()
 	{
 		$migrations = $this->configuration->getMigrations();
