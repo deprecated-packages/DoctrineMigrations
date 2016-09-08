@@ -12,8 +12,7 @@ Implementation of [Doctrine\Migrations](http://docs.doctrine-project.org/project
 ## Install
 
 ```sh
-composer require arachne/event-dispatcher
-composer require zenify/doctrine-migrations
+composer require zenify/doctrine-migrations arachne/event-dispatcher
 ```
 
 Register extensions in `config.neon`:
@@ -90,7 +89,6 @@ namespace Migrations;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
-
 /**
  * New role "superadmin" added.
  */
@@ -125,19 +123,17 @@ For further use, please check [docs in Symfony bundle](http://symfony.com/doc/cu
 
 ## Features
 
-### Cleanup your directories
+### Migrations organization
 
-If you have over 100 migrations in one directory, it might get messy. How to make it nicer? You can create a subdirectory and move some migrations there. I would group them up by year or by purpose. All subdirectories of `directory` you set up in configuration will be scanned.
- 
- It can look like this:
- 
- ```
- /migrations/
-	- VersionZZZ.php
- /migrations/2015/
+If you have over 100 migrations in one directory, it might get messy. Fortunately doctrine migrations can organize your migrations to directories by year or by year and month. You can configure it in your config.neon (see above).
+
+```
+/migrations/2015/11
+	- VersionXXX.php
+/migrations/2015/12
 	- VersionYYY.php
- /migrations/basic-data
-	- VersionXXXX.php
+/migrations/2016/01
+	- VersionZZZ.php
 ```
 
 
@@ -147,7 +143,6 @@ Note: this is not really best practise, so try to use it only if there is no oth
 
 ```php
 namespace Migrations;
-
 
 final class Version20140801152432 extends AbstractMigration
 {
