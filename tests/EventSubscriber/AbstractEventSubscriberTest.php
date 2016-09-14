@@ -12,11 +12,6 @@ abstract class AbstractEventSubscriberTest extends PHPUnit_Framework_TestCase
 {
 
 	/**
-	 * @var array
-	 */
-	private $data;
-
-	/**
 	 * @var Container
 	 */
 	protected $container;
@@ -27,36 +22,9 @@ abstract class AbstractEventSubscriberTest extends PHPUnit_Framework_TestCase
 	protected $application;
 
 
-	/**
-	 * @param string $name
-	 * @param array $data
-	 * @param string $dataName
-	 */
-	public function __construct($name = NULL, array $data = [], $dataName = '')
-	{
-		parent::__construct($name, $data, $dataName);
-
-		$this->data = $data;
-	}
-
-
-	/**
-	 * Data provider for all tests.
-	 *
-	 * @return string[]
-	 */
-	public function getConfigFiles()
-	{
-		return [
-			[__DIR__ . '/../config/default.neon'],
-			[__DIR__ . '/../config/symnedi.neon'],
-		];
-	}
-
-
 	protected function setUp()
 	{
-		$container = (new ContainerFactory)->createWithConfig($this->data);
+		$container = (new ContainerFactory)->create();
 		$this->container = $container;
 		$this->application = $container->getByType(Application::class);
 	}

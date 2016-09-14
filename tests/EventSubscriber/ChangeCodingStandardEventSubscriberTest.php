@@ -20,9 +20,6 @@ class ChangeCodingStandardEventSubscriberTest extends AbstractEventSubscriberTes
 	}
 
 
-	/**
-	 * @dataProvider getConfigFiles
-	 */
 	public function testDispatchingGenerateCommand()
 	{
 		$input = new ArrayInput(['command' => 'migrations:generate']);
@@ -34,9 +31,6 @@ class ChangeCodingStandardEventSubscriberTest extends AbstractEventSubscriberTes
 	}
 
 
-	/**
-	 * @dataProvider getConfigFiles
-	 */
 	public function testDispatchingDiffCommand()
 	{
 		$input = new ArrayInput(['command' => 'migrations:diff']);

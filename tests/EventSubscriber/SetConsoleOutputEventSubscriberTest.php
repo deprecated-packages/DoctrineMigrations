@@ -26,9 +26,6 @@ final class SetConsoleOutputEventSubscriberTest extends AbstractEventSubscriberT
 	}
 
 
-	/**
-	 * @dataProvider getConfigFiles
-	 */
 	public function testDispatching()
 	{
 		$this->assertNull(

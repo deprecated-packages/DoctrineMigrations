@@ -2,11 +2,11 @@
 
 namespace Zenify\DoctrineMigrations\Tests\DI\MigrationsExtension;
 
+use Arachne\EventDispatcher\DI\EventDispatcherExtension;
 use Assert\InvalidArgumentException;
 use Nette\DI\Compiler;
 use Nette\DI\ContainerBuilder;
 use PHPUnit_Framework_TestCase;
-use Symnedi\EventDispatcher\DI\EventDispatcherExtension;
 use Zenify\DoctrineMigrations\Configuration\Configuration;
 use Zenify\DoctrineMigrations\DI\MigrationsExtension;
 

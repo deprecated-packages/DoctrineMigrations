@@ -26,9 +26,7 @@ final class ContainerFactory
 		$configurator = new Configurator;
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->enableDebugger(TEMP_DIR . '/log');
-		foreach ((array) $config as $file) {
-			$configurator->addConfig($file);
-		}
+		$configurator->addConfig($config);
 		return $configurator->createContainer();
 	}
 

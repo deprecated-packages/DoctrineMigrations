@@ -11,7 +11,6 @@ use Arachne\EventDispatcher\DI\EventDispatcherExtension;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand;
 use Nette\DI\CompilerExtension;
 use Symfony\Component\Console\Application;
-use Symnedi\EventDispatcher\DI\EventDispatcherExtension as SymnediEventDispatcherExtension;
 use Zenify\DoctrineMigrations\CodeStyle\CodeStyle;
 use Zenify\DoctrineMigrations\Configuration\Configuration;
 use Zenify\DoctrineMigrations\EventSubscriber\ChangeCodingStandardEventSubscriber;
@@ -50,6 +49,8 @@ final class MigrationsExtension extends CompilerExtension
 	 */
 	public function loadConfiguration()
 	{
+		$this->ensureEventDispatcherExtensionIsRegistered();
+
 		$containerBuilder = $this->getContainerBuilder();
 
 		$this->compiler->parseServices(
@@ -57,30 +58,11 @@ final class MigrationsExtension extends CompilerExtension
 			$this->loadFromFile(__DIR__ . '/../config/services.neon')
 		);
 
-		if ($this->compiler->getExtensions(EventDispatcherExtension::class)) {
-			$tag = EventDispatcherExtension::TAG_SUBSCRIBER;
-
-		} elseif ($this->compiler->getExtensions(SymnediEventDispatcherExtension::class)) {
-			$tag = NULL;
-
-		} else {
-			throw new MissingExtensionException(
-				sprintf(
-					'Please register required extension "%s" to your config. For now "%s" is also supported.',
-					EventDispatcherExtension::class,
-					SymnediEventDispatcherExtension::class
-				)
-			);
-		}
-
 		foreach ($this->subscribers as $key => $subscriber) {
 			$definition = $containerBuilder
 				->addDefinition($this->prefix('listener' . $key))
-				->setClass($subscriber);
-
-			if ($tag) {
-				$definition->addTag($tag);
-			}
+				->setClass($subscriber)
+				->addTag(EventDispatcherExtension::TAG_SUBSCRIBER);
 		}
 
 		$config = $this->getValidatedConfig();
@@ -157,6 +139,16 @@ final class MigrationsExtension extends CompilerExtension
 		$configuration['directory'] = $this->getContainerBuilder()->expand($configuration['directory']);
 
 		return $configuration;
+	}
+
+
+	private function ensureEventDispatcherExtensionIsRegistered()
+	{
+		if ( ! $this->compiler->getExtensions(EventDispatcherExtension::class)) {
+			throw new MissingExtensionException(
+				sprintf('Please register required extension "%s" to your config.', EventDispatcherExtension::class)
+			);
+		}
 	}
 
 }

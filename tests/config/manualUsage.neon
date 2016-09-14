@@ -3,7 +3,8 @@ services:
 
 
 extensions:
-	- Symnedi\EventDispatcher\DI\EventDispatcherExtension
+	- Arachne\ContainerAdapter\DI\ContainerAdapterExtension
+	- Arachne\EventDispatcher\DI\EventDispatcherExtension
 	- Kdyby\Events\DI\EventsExtension
 	- Kdyby\Console\DI\ConsoleExtension
 	- Kdyby\Annotations\DI\AnnotationsExtension

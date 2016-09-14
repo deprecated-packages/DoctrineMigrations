@@ -25,9 +25,6 @@ final class RegisterMigrationsEventSubscriberTest extends AbstractEventSubscribe
 	}
 
 
-	/**
-	 * @dataProvider getConfigFiles
-	 */
 	public function testStatusCommand()
 	{
 		$input = new ArrayInput(['command' => 'migrations:status']);
@@ -38,9 +35,6 @@ final class RegisterMigrationsEventSubscriberTest extends AbstractEventSubscribe
 	}
 
 
-	/**
-	 * @dataProvider getConfigFiles
-	 */
 	public function testAvailableMigrations()
 	{
 		$this->assertSame(2, $this->configuration->getNumberOfAvailableMigrations());
