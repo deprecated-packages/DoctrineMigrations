@@ -3,20 +3,12 @@
 namespace Zenify\DoctrineMigrations\Tests\EventSubscriber;
 
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
-use PHPUnit_Framework_TestCase;
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 
 
-final class RegisterMigrationsEventSubscriberTest extends PHPUnit_Framework_TestCase
+final class RegisterMigrationsEventSubscriberTest extends EventSubscriberTest
 {
-
-	/**
-	 * @var Application
-	 */
-	private $application;
 
 	/**
 	 * @var Configuration
@@ -26,14 +18,16 @@ final class RegisterMigrationsEventSubscriberTest extends PHPUnit_Framework_Test
 
 	protected function setUp()
 	{
-		$container = (new ContainerFactory)->create();
-		$this->application = $container->getByType(Application::class);
+		parent::setUp();
 
-		$this->configuration = $container->getByType(Configuration::class);
+		$this->configuration = $this->container->getByType(Configuration::class);
 		$this->configuration->setMigrationsDirectory($this->getMigrationsDirectory());
 	}
 
 
+	/**
+	 * @dataProvider getConfigFiles
+	 */
 	public function testStatusCommand()
 	{
 		$input = new ArrayInput(['command' => 'migrations:status']);
@@ -44,6 +38,9 @@ final class RegisterMigrationsEventSubscriberTest extends PHPUnit_Framework_Test
 	}
 
 
+	/**
+	 * @dataProvider getConfigFiles
+	 */
 	public function testAvailableMigrations()
 	{
 		$this->assertSame(2, $this->configuration->getNumberOfAvailableMigrations());

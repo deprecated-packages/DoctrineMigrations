@@ -7,9 +7,9 @@ extensions:
 	- Kdyby\Console\DI\ConsoleExtension
 	doctrine: Kdyby\Doctrine\DI\OrmExtension
 	migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
-	events: Kdyby\Events\DI\EventsExtension
-	- Arachne\ContainerAdapter\DI\ContainerAdapterExtension
-	- Arachne\EventDispatcher\DI\EventDispatcherExtension
+
+	- Kdyby\Events\DI\EventsExtension
+	- Symnedi\EventDispatcher\DI\EventDispatcherExtension
 
 
 doctrine:

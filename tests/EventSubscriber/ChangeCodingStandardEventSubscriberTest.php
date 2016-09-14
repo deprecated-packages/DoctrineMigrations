@@ -3,33 +3,26 @@
 namespace Zenify\DoctrineMigrations\Tests\EventSubscriber;
 
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
-use PHPUnit_Framework_TestCase;
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 
 
-class ChangeCodingStandardEventSubscriberTest extends PHPUnit_Framework_TestCase
+class ChangeCodingStandardEventSubscriberTest extends EventSubscriberTest
 {
-
-	/**
-	 * @var Application
-	 */
-	private $application;
-
 
 	protected function setUp()
 	{
-		$container = (new ContainerFactory)->create();
-		$this->application = $container->getByType(Application::class);
+		parent::setUp();
 
 		/** @var Configuration $configuration */
-		$configuration = $container->getByType(Configuration::class);
+		$configuration = $this->container->getByType(Configuration::class);
 		$configuration->setMigrationsDirectory($this->getMigrationsDirectory());
 	}
 
 
+	/**
+	 * @dataProvider getConfigFiles
+	 */
 	public function testDispatchingGenerateCommand()
 	{
 		$input = new ArrayInput(['command' => 'migrations:generate']);
@@ -41,6 +34,9 @@ class ChangeCodingStandardEventSubscriberTest extends PHPUnit_Framework_TestCase
 	}
 
 
+	/**
+	 * @dataProvider getConfigFiles
+	 */
 	public function testDispatchingDiffCommand()
 	{
 		$input = new ArrayInput(['command' => 'migrations:diff']);
@@ -61,7 +57,7 @@ class ChangeCodingStandardEventSubscriberTest extends PHPUnit_Framework_TestCase
 
 		$migrationFile = $this->extractMigrationFile($outputContent);
 		$fileContents = file_get_contents($migrationFile);
-		$this->assertNotContains('    ', $fileContents);
+		$this->assertNotContains('	', $fileContents);
 		$this->assertContains(' ', $fileContents);
 	}
 
