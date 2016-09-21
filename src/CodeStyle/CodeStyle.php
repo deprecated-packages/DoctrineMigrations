@@ -55,7 +55,7 @@ final class CodeStyle implements CodeStyleInterface
 	private function convertSpacesToTabsForFile($file)
 	{
 		$code = file_get_contents($file);
-		$code = preg_replace("/ {4}/", "\t", $code);
+		$code = preg_replace('/ {4}/', "\t", $code);
 		file_put_contents($file, $code);
 	}
 

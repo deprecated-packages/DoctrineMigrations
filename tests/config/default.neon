@@ -3,13 +3,13 @@ services:
 
 
 extensions:
+	- Arachne\ContainerAdapter\DI\ContainerAdapterExtension
+	- Arachne\EventDispatcher\DI\EventDispatcherExtension
 	- Kdyby\Annotations\DI\AnnotationsExtension
 	- Kdyby\Console\DI\ConsoleExtension
 	doctrine: Kdyby\Doctrine\DI\OrmExtension
 	migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
-
-	- Kdyby\Events\DI\EventsExtension
-	- Symnedi\EventDispatcher\DI\EventDispatcherExtension
+	events: Kdyby\Events\DI\EventsExtension
 
 
 doctrine:

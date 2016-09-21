@@ -3,29 +3,19 @@
 namespace Zenify\DoctrineMigrations\Tests\EventSubscriber;
 
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
-use PHPUnit_Framework_TestCase;
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 
 
-class ChangeCodingStandardEventSubscriberTest extends PHPUnit_Framework_TestCase
+class ChangeCodingStandardEventSubscriberTest extends AbstractEventSubscriberTest
 {
-
-	/**
-	 * @var Application
-	 */
-	private $application;
-
 
 	protected function setUp()
 	{
-		$container = (new ContainerFactory)->create();
-		$this->application = $container->getByType(Application::class);
+		parent::setUp();
 
 		/** @var Configuration $configuration */
-		$configuration = $container->getByType(Configuration::class);
+		$configuration = $this->container->getByType(Configuration::class);
 		$configuration->setMigrationsDirectory($this->getMigrationsDirectory());
 	}
 
@@ -62,7 +52,7 @@ class ChangeCodingStandardEventSubscriberTest extends PHPUnit_Framework_TestCase
 		$migrationFile = $this->extractMigrationFile($outputContent);
 		$fileContents = file_get_contents($migrationFile);
 		$this->assertNotContains('    ', $fileContents);
-		$this->assertContains(' ', $fileContents);
+		$this->assertContains("\t", $fileContents);
 	}
 
 

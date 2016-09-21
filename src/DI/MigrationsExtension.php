@@ -7,12 +7,15 @@
 
 namespace Zenify\DoctrineMigrations\DI;
 
+use Arachne\EventDispatcher\DI\EventDispatcherExtension;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand;
 use Nette\DI\CompilerExtension;
 use Symfony\Component\Console\Application;
-use Symnedi\EventDispatcher\DI\EventDispatcherExtension;
 use Zenify\DoctrineMigrations\CodeStyle\CodeStyle;
 use Zenify\DoctrineMigrations\Configuration\Configuration;
+use Zenify\DoctrineMigrations\EventSubscriber\ChangeCodingStandardEventSubscriber;
+use Zenify\DoctrineMigrations\EventSubscriber\RegisterMigrationsEventSubscriber;
+use Zenify\DoctrineMigrations\EventSubscriber\SetConsoleOutputEventSubscriber;
 use Zenify\DoctrineMigrations\Exception\DI\MissingExtensionException;
 
 
@@ -24,9 +27,20 @@ final class MigrationsExtension extends CompilerExtension
 	 */
 	private $defaults = [
 		'table' => 'doctrine_migrations',
+		'column' => 'version',
 		'directory' => '%appDir%/../migrations',
 		'namespace' => 'Migrations',
-		'codingStandard' => CodeStyle::INDENTATION_TABS
+		'codingStandard' => CodeStyle::INDENTATION_TABS,
+		'versionsOrganization' => NULL,
+	];
+
+	/**
+	 * @var string[]
+	 */
+	private $subscribers = [
+		ChangeCodingStandardEventSubscriber::class,
+		RegisterMigrationsEventSubscriber::class,
+		SetConsoleOutputEventSubscriber::class,
 	];
 
 
@@ -35,7 +49,7 @@ final class MigrationsExtension extends CompilerExtension
 	 */
 	public function loadConfiguration()
 	{
-		$this->ensureSymnediEventDispatcherExtensionIsRegistered();
+		$this->ensureEventDispatcherExtensionIsRegistered();
 
 		$containerBuilder = $this->getContainerBuilder();
 
@@ -43,6 +57,13 @@ final class MigrationsExtension extends CompilerExtension
 			$containerBuilder,
 			$this->loadFromFile(__DIR__ . '/../config/services.neon')
 		);
+
+		foreach ($this->subscribers as $key => $subscriber) {
+			$definition = $containerBuilder
+				->addDefinition($this->prefix('listener' . $key))
+				->setClass($subscriber)
+				->addTag(EventDispatcherExtension::TAG_SUBSCRIBER);
+		}
 
 		$config = $this->getValidatedConfig();
 
@@ -70,11 +91,20 @@ final class MigrationsExtension extends CompilerExtension
 	private function addConfigurationDefinition(array $config)
 	{
 		$containerBuilder = $this->getContainerBuilder();
-		$containerBuilder->addDefinition($this->prefix('configuration'))
+		$configurationDefinition = $containerBuilder->addDefinition($this->prefix('configuration'));
+		$configurationDefinition
 			->setClass(Configuration::class)
 			->addSetup('setMigrationsTableName', [$config['table']])
+			->addSetup('setMigrationsColumnName', [$config['column']])
 			->addSetup('setMigrationsDirectory', [$config['directory']])
 			->addSetup('setMigrationsNamespace', [$config['namespace']]);
+
+		if ($config['versionsOrganization'] === Configuration::VERSIONS_ORGANIZATION_BY_YEAR) {
+			$configurationDefinition->addSetup('setMigrationsAreOrganizedByYear');
+
+		} elseif ($config['versionsOrganization'] === Configuration::VERSIONS_ORGANIZATION_BY_YEAR_AND_MONTH) {
+			$configurationDefinition->addSetup('setMigrationsAreOrganizedByYearAndMonth');
+		}
 	}
 
 
@@ -106,29 +136,13 @@ final class MigrationsExtension extends CompilerExtension
 	{
 		$configuration = $this->getConfig($this->defaults);
 		$this->validateConfig($configuration);
-
-		$configuration = $this->keepBcForDirsOption($configuration);
 		$configuration['directory'] = $this->getContainerBuilder()->expand($configuration['directory']);
 
 		return $configuration;
 	}
 
 
-	/**
-	 * @deprecated Old `dirs` option to be removed in 3.0, use `directory` instead.
-	 *
-	 * @return array
-	 */
-	private function keepBcForDirsOption(array $configuration)
-	{
-		if (isset($configuration['dirs']) && count($configuration['dirs'])) {
-			$configuration['directory'] = reset($configuration['dirs']);
-		}
-		return $configuration;
-	}
-
-
-	private function ensureSymnediEventDispatcherExtensionIsRegistered()
+	private function ensureEventDispatcherExtensionIsRegistered()
 	{
 		if ( ! $this->compiler->getExtensions(EventDispatcherExtension::class)) {
 			throw new MissingExtensionException(

@@ -10,7 +10,7 @@ use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 final class EnsureRequiredExtensionsTest extends PHPUnit_Framework_TestCase
 {
 
-	public function testEnsureSymnediEventDispatcher()
+	public function testEnsureEventDispatcher()
 	{
 		$this->setExpectedException(MissingExtensionException::class);
 		(new ContainerFactory)->createWithConfig(__DIR__ . '/../../config/extensionOnly.neon');

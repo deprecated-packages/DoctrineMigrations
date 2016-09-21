@@ -3,22 +3,14 @@
 namespace Zenify\DoctrineMigrations\Tests\EventSubscriber;
 
 use PHPUnit_Framework_Assert;
-use PHPUnit_Framework_TestCase;
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Zenify\DoctrineMigrations\OutputWriter;
-use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 
 
-final class SetConsoleOutputEventSubscriberTest extends PHPUnit_Framework_TestCase
+final class SetConsoleOutputEventSubscriberTest extends AbstractEventSubscriberTest
 {
-
-	/**
-	 * @var Application
-	 */
-	private $application;
 
 	/**
 	 * @var OutputWriter
@@ -28,9 +20,9 @@ final class SetConsoleOutputEventSubscriberTest extends PHPUnit_Framework_TestCa
 
 	protected function setUp()
 	{
-		$container = (new ContainerFactory)->create();
-		$this->application = $container->getByType(Application::class);
-		$this->outputWriter = $container->getByType(OutputWriter::class);
+		parent::setUp();
+
+		$this->outputWriter = $this->container->getByType(OutputWriter::class);
 	}
 
 
