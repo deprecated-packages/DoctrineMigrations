@@ -12,7 +12,7 @@ Implementation of [Doctrine\Migrations](http://docs.doctrine-project.org/project
 ## Install
 
 ```sh
-composer require zenify/doctrine-migrations arachne/event-dispatcher
+composer require zenify/doctrine-migrations
 ```
 
 Register extensions in `config.neon`:
