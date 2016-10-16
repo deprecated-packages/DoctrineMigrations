@@ -19,8 +19,7 @@ Register extensions in `config.neon`:
 
 ```yaml
 extensions:
-	- Arachne\ContainerAdapter\DI\ContainerAdapterExtension
-	- Arachne\EventDispatcher\DI\EventDispatcherExtension
+	- Symnedi\EventDispatcher\DI\EventDispatcherExtension
 	migrations: Zenify\DoctrineMigrations\DI\MigrationsExtension
 
 	# Kdyby\Doctrine or another Doctrine integration
