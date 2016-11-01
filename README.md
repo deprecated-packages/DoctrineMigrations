@@ -163,3 +163,23 @@ final class Version20140801152432 extends AbstractMigration
 
 }
 ```
+
+
+
+## Testing
+
+```sh
+composer check-cs
+vendor/bin/phpunit
+```
+
+
+## Contributing
+
+Rules are simple:
+
+- new feature needs tests
+- all tests must pass
+- 1 feature per PR
+
+We would be happy to merge your feature then!
