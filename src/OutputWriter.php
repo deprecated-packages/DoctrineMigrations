@@ -28,7 +28,7 @@ final class OutputWriter extends DoctrineOutputWriter
 
 
 	/**
-	 * {@inheritdoc}
+	 * @param string $message
 	 */
 	public function write($message)
 	{

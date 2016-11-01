@@ -71,9 +71,6 @@ final class MigrationsExtension extends CompilerExtension
 	}
 
 
-	/**
-	 * {@inheritdoc}
-	 */
 	public function beforeCompile()
 	{
 		$containerBuilder = $this->getContainerBuilder();
