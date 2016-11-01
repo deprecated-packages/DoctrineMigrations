@@ -3,7 +3,7 @@
 namespace Migrations\Typo;
 
 
-class Version789
+final class Version789
 {
 
 }

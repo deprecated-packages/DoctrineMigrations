@@ -3,7 +3,7 @@
 namespace Zenify\DoctrineMigrations\Tests\Configuration\ConfigurationSource;
 
 
-class SomeService
+final class SomeService
 {
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Zenify
  * Copyright (c) 2014 Tomas Votruba (http://tomasvotruba.cz)
  */
@@ -37,7 +37,7 @@ final class ChangeCodingStandardEventSubscriber implements EventSubscriberInterf
 
 
 	/**
-	 * {@inheritdoc}
+	 * @return array
 	 */
 	public static function getSubscribedEvents()
 	{

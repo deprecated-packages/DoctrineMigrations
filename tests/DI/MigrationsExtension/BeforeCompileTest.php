@@ -8,13 +8,13 @@ use Nette\DI\Compiler;
 use Nette\DI\ContainerBuilder;
 use Nette\DI\ServiceDefinition;
 use Nette\DI\Statement;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Zenify\DoctrineMigrations\Configuration\Configuration;
 use Zenify\DoctrineMigrations\DI\MigrationsExtension;
 
 
-final class BeforeCompileTest extends PHPUnit_Framework_TestCase
+final class BeforeCompileTest extends TestCase
 {
 
 	/**

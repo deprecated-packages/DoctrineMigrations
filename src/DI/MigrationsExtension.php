@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Zenify
  * Copyright (c) 2014 Tomas Votruba (http://tomasvotruba.cz)
  */
@@ -44,9 +44,6 @@ final class MigrationsExtension extends CompilerExtension
 	];
 
 
-	/**
-	 * {@inheritdoc}
-	 */
 	public function loadConfiguration()
 	{
 		$this->ensureEventDispatcherExtensionIsRegistered();
@@ -59,8 +56,7 @@ final class MigrationsExtension extends CompilerExtension
 		);
 
 		foreach ($this->subscribers as $key => $subscriber) {
-			$definition = $containerBuilder
-				->addDefinition($this->prefix('listener' . $key))
+			$containerBuilder->addDefinition($this->prefix('listener' . $key))
 				->setClass($subscriber)
 				->addTag(EventDispatcherExtension::TAG_SUBSCRIBER);
 		}

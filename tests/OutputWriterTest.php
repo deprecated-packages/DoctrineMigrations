@@ -2,13 +2,13 @@
 
 namespace Zenify\DoctrineMigrations\Tests;
 
+use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_Assert;
-use PHPUnit_Framework_TestCase;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Zenify\DoctrineMigrations\OutputWriter;
 
 
-class OutputWriterTest extends PHPUnit_Framework_TestCase
+final class OutputWriterTest extends TestCase
 {
 
 	/**

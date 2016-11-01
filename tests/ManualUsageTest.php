@@ -2,13 +2,13 @@
 
 namespace Zenify\DoctrineMigrations\Tests;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 
-final class ManualUsageTest extends PHPUnit_Framework_TestCase
+final class ManualUsageTest extends TestCase
 {
 
 	/**

@@ -2,11 +2,11 @@
 
 namespace Zenify\DoctrineMigrations\Tests\CodeStyle;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Zenify\DoctrineMigrations\CodeStyle\CodeStyle;
 
 
-class CodeStyleTest extends PHPUnit_Framework_TestCase
+final class CodeStyleTest extends TestCase
 {
 
 	public function testConvertToTabs()

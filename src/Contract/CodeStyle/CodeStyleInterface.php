@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Zenify
  * Copyright (c) 2014 Tomas Votruba (http://tomasvotruba.cz)
  */
@@ -14,6 +14,6 @@ interface CodeStyleInterface
 	/**
 	 * @param string $file
 	 */
-	function applyForFile($file);
+	public function applyForFile($file);
 
 }

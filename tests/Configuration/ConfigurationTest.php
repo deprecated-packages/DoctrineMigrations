@@ -2,20 +2,16 @@
 
 namespace Zenify\DoctrineMigrations\Tests\Configuration;
 
-use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use Doctrine\DBAL\Migrations\Version;
-use Nette\DI\Container;
-use PHPUnit_Framework_TestCase;
-use Zenify\DoctrineMigrations\Configuration\Configuration as ZenifyConfiguration;
-use Zenify\DoctrineMigrations\Exception\Configuration\MigrationClassNotFoundException;
+use PHPUnit\Framework\TestCase;
 use Zenify\DoctrineMigrations\Tests\Configuration\ConfigurationSource\SomeService;
 use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 use Zenify\DoctrineMigrations\Tests\Migrations\Version123;
 
 
-final class ConfigurationTest extends PHPUnit_Framework_TestCase
+final class ConfigurationTest extends TestCase
 {
 
 	/**

@@ -17,18 +17,12 @@ final class Version123 extends AbstractMigration
 	public $someService;
 
 
-	/**
-	 * {@inheritdoc}
-	 */
 	public function up(Schema $schema)
 	{
 		$this->addSql('CREATE TABLE "category" ( "id" integer NOT NULL );');
 	}
 
 
-	/**
-	 * {@inheritdoc}
-	 */
 	public function down(Schema $schema)
 	{
 	}

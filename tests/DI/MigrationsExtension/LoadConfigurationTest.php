@@ -3,15 +3,14 @@
 namespace Zenify\DoctrineMigrations\Tests\DI\MigrationsExtension;
 
 use Arachne\EventDispatcher\DI\EventDispatcherExtension;
-use Assert\InvalidArgumentException;
 use Nette\DI\Compiler;
 use Nette\DI\ContainerBuilder;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Zenify\DoctrineMigrations\Configuration\Configuration;
 use Zenify\DoctrineMigrations\DI\MigrationsExtension;
 
 
-class LoadConfigurationTest extends PHPUnit_Framework_TestCase
+class LoadConfigurationTest extends TestCase
 {
 
 	/**

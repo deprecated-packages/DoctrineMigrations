@@ -8,18 +8,27 @@ cache:
 
 php:
   - 5.6
-  - 7.0
+  - 7.1
+
+matrix:
+  include:
+    - php: 7.0
+      env: PHPUNIT_FLAGS="--coverage-clover coverage.xml" CHECK_CS=true
 
 install:
-  - composer create-project --prefer-source --dev --no-interaction zenify/ci vendor/ci @dev
-  - . vendor/ci/travis/coverage-init.sh
+  # install composer dependencies
   - composer install --prefer-source
 
-before_script:
-  - . vendor/ci/travis/static-analysis.sh
-
 script:
-  - phpunit $PHPUNIT_FLAGS
+  # run tests
+  - vendor/bin/phpunit $PHPUNIT_FLAGS
+  # check coding standard (defined in composer.json "scripts" section)
+  - if [[ "$CHECK_CS" != "" ]]; then composer check-cs; fi
 
 after_script:
-  - . vendor/ci/travis/coverage-send.sh
+  # upload coverage.xml file to Scrutinizer to analyze it
+  - |
+    if [[ "$PHPUNIT_FLAGS" != "" ]]; then
+      wget https://scrutinizer-ci.com/ocular.phar
+      php ocular.phar code-coverage:upload --format=php-clover coverage.xml
+    fi

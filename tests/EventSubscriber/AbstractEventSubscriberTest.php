@@ -3,12 +3,12 @@
 namespace Zenify\DoctrineMigrations\Tests\EventSubscriber;
 
 use Nette\DI\Container;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 
 
-abstract class AbstractEventSubscriberTest extends PHPUnit_Framework_TestCase
+abstract class AbstractEventSubscriberTest extends TestCase
 {
 
 	/**

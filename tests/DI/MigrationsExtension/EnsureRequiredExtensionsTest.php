@@ -2,17 +2,18 @@
 
 namespace Zenify\DoctrineMigrations\Tests\DI\MigrationsExtension;
 
-use PHPUnit_Framework_TestCase;
-use Zenify\DoctrineMigrations\Exception\DI\MissingExtensionException;
+use PHPUnit\Framework\TestCase;
 use Zenify\DoctrineMigrations\Tests\ContainerFactory;
 
 
-final class EnsureRequiredExtensionsTest extends PHPUnit_Framework_TestCase
+final class EnsureRequiredExtensionsTest extends TestCase
 {
 
+	/**
+	 * @expectedException \Zenify\DoctrineMigrations\Exception\DI\MissingExtensionException
+	 */
 	public function testEnsureEventDispatcher()
 	{
-		$this->setExpectedException(MissingExtensionException::class);
 		(new ContainerFactory)->createWithConfig(__DIR__ . '/../../config/extensionOnly.neon');
 	}
 

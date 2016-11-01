@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file is part of Zenify
  * Copyright (c) 2014 Tomas Votruba (http://tomasvotruba.cz)
  */
@@ -10,8 +10,8 @@ namespace Zenify\DoctrineMigrations\Configuration;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Migrations\Configuration\Configuration as BaseConfiguration;
 use Doctrine\DBAL\Migrations\OutputWriter;
+use Doctrine\DBAL\Migrations\Version;
 use Nette\DI\Container;
-use Zenify\DoctrineMigrations\Exception\Configuration\MigrationClassNotFoundException;
 
 
 final class Configuration extends BaseConfiguration
@@ -25,7 +25,9 @@ final class Configuration extends BaseConfiguration
 
 
 	/**
-	 * {@inheritdoc}
+	 * @param string $direction
+	 * @param string $to
+	 * @return Version[]
 	 */
 	public function getMigrationsToExecute($direction, $to)
 	{
@@ -38,7 +40,8 @@ final class Configuration extends BaseConfiguration
 
 
 	/**
-	 * {@inheritdoc}
+	 * @param string $version
+	 * @return Version|string
 	 */
 	public function getVersion($version)
 	{
