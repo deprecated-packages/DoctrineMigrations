@@ -14,6 +14,6 @@ interface CodeStyleInterface
 	/**
 	 * @param string $file
 	 */
-	public function applyForFile($file);
+	function applyForFile($file);
 
 }
