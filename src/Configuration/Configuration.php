@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Zenify
  * Copyright (c) 2014 Tomas Votruba (http://tomasvotruba.cz)
@@ -17,6 +19,12 @@ use Nette\DI\Container;
 final class Configuration extends BaseConfiguration
 {
 
+	/**
+	 * @var Container
+	 */
+	private $container;
+
+
 	public function __construct(Container $container, Connection $connection, OutputWriter $outputWriter = NULL)
 	{
 		$this->container = $container;
@@ -27,9 +35,8 @@ final class Configuration extends BaseConfiguration
 	/**
 	 * @param string $direction
 	 * @param string $to
-	 * @return Version[]
 	 */
-	public function getMigrationsToExecute($direction, $to)
+	public function getMigrationsToExecute($direction, $to) : array
 	{
 		$versions = parent::getMigrationsToExecute($direction, $to);
 		foreach ($versions as $version) {

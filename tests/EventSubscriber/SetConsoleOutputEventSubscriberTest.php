@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zenify\DoctrineMigrations\Tests\EventSubscriber;
 
 use PHPUnit_Framework_Assert;

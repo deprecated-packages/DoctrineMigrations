@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Zenify
  * Copyright (c) 2014 Tomas Votruba (http://tomasvotruba.cz)
@@ -29,19 +31,13 @@ final class CodeStyle implements CodeStyleInterface
 	private $indentationStandard;
 
 
-	/**
-	 * @param string $indentationStandard
-	 */
-	public function __construct($indentationStandard)
+	public function __construct(string $indentationStandard)
 	{
 		$this->indentationStandard = $indentationStandard;
 	}
 
 
-	/**
-	 * @param string $file
-	 */
-	public function applyForFile($file)
+	public function applyForFile(string $file)
 	{
 		if ($this->indentationStandard === self::INDENTATION_TABS) {
 			$this->convertSpacesToTabsForFile($file);
@@ -49,10 +45,7 @@ final class CodeStyle implements CodeStyleInterface
 	}
 
 
-	/**
-	 * @param string $file
-	 */
-	private function convertSpacesToTabsForFile($file)
+	private function convertSpacesToTabsForFile(string $file)
 	{
 		$code = file_get_contents($file);
 		$code = preg_replace('/ {4}/', "\t", $code);

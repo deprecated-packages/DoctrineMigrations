@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zenify\DoctrineMigrations\Tests\CodeStyle;
 
 use PHPUnit\Framework\TestCase;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Zenify
  * Copyright (c) 2014 Tomas Votruba (http://tomasvotruba.cz)
@@ -36,10 +38,7 @@ final class ChangeCodingStandardEventSubscriber implements EventSubscriberInterf
 	}
 
 
-	/**
-	 * @return array
-	 */
-	public static function getSubscribedEvents()
+	public static function getSubscribedEvents() : array
 	{
 		return [ConsoleEvents::TERMINATE => 'applyCodingStyle'];
 	}
@@ -59,20 +58,13 @@ final class ChangeCodingStandardEventSubscriber implements EventSubscriberInterf
 	}
 
 
-	/**
-	 * @param string $name
-	 * @return bool
-	 */
-	private function isAllowedCommand($name)
+	private function isAllowedCommand(string $name) : bool
 	{
 		return in_array($name, ['migrations:generate', 'migrations:diff']);
 	}
 
 
-	/**
-	 * @return string
-	 */
-	private function getCurrentMigrationFileName()
+	private function getCurrentMigrationFileName() : string
 	{
 		$version = $this->getCurrentVersionName();
 
@@ -87,20 +79,13 @@ final class ChangeCodingStandardEventSubscriber implements EventSubscriberInterf
 	}
 
 
-	/**
-	 * @return string
-	 */
-	private function getCurrentVersionName()
+	private function getCurrentVersionName() : string
 	{
 		return date('YmdHis');
 	}
 
 
-	/**
-	 * @param string $version
-	 * @return string
-	 */
-	private function getMigrationFileByVersion($version)
+	private function getMigrationFileByVersion(string $version) : string
 	{
 		$migrationDirectoryHelper = new MigrationDirectoryHelper($this->configuration);
 		return $migrationDirectoryHelper->getMigrationDirectory() . '/Version' . $version . '.php';

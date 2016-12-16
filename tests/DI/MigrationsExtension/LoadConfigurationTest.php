@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zenify\DoctrineMigrations\Tests\DI\MigrationsExtension;
 
 use Arachne\EventDispatcher\DI\EventDispatcherExtension;

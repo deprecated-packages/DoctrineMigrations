@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Zenify
  * Copyright (c) 2014 Tomas Votruba (http://tomasvotruba.cz)
@@ -30,10 +32,7 @@ final class SetConsoleOutputEventSubscriber implements EventSubscriberInterface
 	}
 
 
-	/**
-	 * @return array
-	 */
-	public static function getSubscribedEvents()
+	public static function getSubscribedEvents() : array
 	{
 		return [ConsoleEvents::COMMAND => 'setOutputWriter'];
 	}
@@ -50,10 +49,7 @@ final class SetConsoleOutputEventSubscriber implements EventSubscriberInterface
 	}
 
 
-	/**
-	 * @return bool
-	 */
-	private function isMigrationCommand(Command $command)
+	private function isMigrationCommand(Command $command) : bool
 	{
 		return $command instanceof AbstractCommand;
 	}

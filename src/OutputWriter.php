@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Zenify
  * Copyright (c) 2014 Tomas Votruba (http://tomasvotruba.cz)
@@ -9,6 +11,7 @@ namespace Zenify\DoctrineMigrations;
 
 use Doctrine\DBAL\Migrations\OutputWriter as DoctrineOutputWriter;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
@@ -36,10 +39,7 @@ final class OutputWriter extends DoctrineOutputWriter
 	}
 
 
-	/**
-	 * @return ConsoleOutput
-	 */
-	private function getConsoleOutput()
+	private function getConsoleOutput() : OutputInterface
 	{
 		if ($this->consoleOutput === NULL) {
 			$this->consoleOutput = new ConsoleOutput;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of Zenify
  * Copyright (c) 2014 Tomas Votruba (http://tomasvotruba.cz)
@@ -9,6 +11,7 @@ namespace Zenify\DoctrineMigrations\DI;
 
 use Arachne\EventDispatcher\DI\EventDispatcherExtension;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand;
+use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;
 use Symfony\Component\Console\Application;
 use Zenify\DoctrineMigrations\CodeStyle\CodeStyle;
@@ -50,9 +53,9 @@ final class MigrationsExtension extends CompilerExtension
 
 		$containerBuilder = $this->getContainerBuilder();
 
-		$this->compiler->parseServices(
+		Compiler::loadDefinitions(
 			$containerBuilder,
-			$this->loadFromFile(__DIR__ . '/../config/services.neon')
+			$this->loadFromFile(__DIR__ . '/../config/services.neon')['services']
 		);
 
 		foreach ($this->subscribers as $key => $subscriber) {
@@ -122,10 +125,7 @@ final class MigrationsExtension extends CompilerExtension
 	}
 
 
-	/**
-	 * @return array
-	 */
-	private function getValidatedConfig()
+	private function getValidatedConfig() : array
 	{
 		$configuration = $this->getConfig($this->defaults);
 		$this->validateConfig($configuration);

@@ -6,22 +6,22 @@
 		{ "name": "Tomáš Votruba", "homepage": "http://tomasvotruba.cz" }
 	],
 	"require": {
-		"php": "^5.6|^7.0",
+		"php": "^7.0",
 		"arachne/event-dispatcher": "^0.1",
 		"doctrine/migrations": "^1.4",
-		"nette/di": "^2.3",
-		"symfony/console": "^2.7|^3.0",
-		"symfony/event-dispatcher": "^2.7|^3.0"
+		"nette/di": "^2.4",
+		"symfony/console": "^3.1",
+		"symfony/event-dispatcher": "^3.1"
 	},
 	"require-dev": {
-		"kdyby/console": "^2.4",
+		"kdyby/console": "^2.6",
 		"kdyby/events": "^3.0",
 		"kdyby/doctrine": "^3.1",
-		"nette/bootstrap": "^2.3",
-		"nette/reflection": "^2.3",
+		"nette/bootstrap": "^2.4",
+		"nette/reflection": "^2.4",
+		"tracy/tracy": "^2.4",
 		"phpunit/phpunit": "^5.6",
-		"tracy/tracy": "^2.3",
-		"zenify/coding-standard": "^3.0"
+		"zenify/coding-standard": "^4.0"
 	},
 	"autoload": {
 		"psr-4": {
