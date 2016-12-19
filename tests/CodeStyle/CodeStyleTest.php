@@ -14,6 +14,7 @@ final class CodeStyleTest extends TestCase
 	public function testConvertToTabs()
 	{
 		$file = sys_get_temp_dir() . '/doctrine-migrations/some-spaced-text-file.txt';
+		@mkdir(dirname($file));
 		file_put_contents($file, '    hi');
 		(new CodeStyle(CodeStyle::INDENTATION_TABS))->applyForFile($file);
 
@@ -25,6 +26,7 @@ final class CodeStyleTest extends TestCase
 	public function testKeepSpaces()
 	{
 		$file = sys_get_temp_dir() . '/doctrine-migrations/some-spaced-text-file.txt';
+		@mkdir(dirname($file));
 		file_put_contents($file, '    hi');
 		(new CodeStyle(CodeStyle::INDENTATION_SPACES))->applyForFile($file);
 
