@@ -95,18 +95,12 @@ use Doctrine\DBAL\Schema\Schema;
 final class Version20151015000003 extends AbstractMigration
 {
 
-	/**
-	 * {@inheritdoc}
-	 */
 	public function up(Schema $schema)
 	{
 		$this->addSql("INSERT INTO 'user_role' (id, value, name) VALUES (3, 'superadmin', 'Super Admin')");
 	}
 	
 
-	/**
-	 * {@inheritdoc}
-	 */
 	public function down(Schema $schema)
 	{
 		$this->addSql("DELETE FROM 'user_role' WHERE ('id' = 3);");
