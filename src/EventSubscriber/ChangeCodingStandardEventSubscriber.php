@@ -69,12 +69,12 @@ final class ChangeCodingStandardEventSubscriber implements EventSubscriberInterf
 		$version = $this->getCurrentVersionName();
 
 		$i = 0;
-		while ( ! file_exists($this->getMigrationFileByVersion($version)) && $i <= 10) {
+		while ( ! file_exists($this->getMigrationFileByVersion((string) $version)) && $i <= 10) {
 			$version--;
 			$i++;
 		}
 
-		$path = $this->getMigrationFileByVersion($version);
+		$path = $this->getMigrationFileByVersion((string) $version);
 		return $path;
 	}
 
