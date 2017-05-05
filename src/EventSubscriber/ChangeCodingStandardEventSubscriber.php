@@ -70,7 +70,8 @@ final class ChangeCodingStandardEventSubscriber implements EventSubscriberInterf
 
 		$i = 0;
 		while ( ! file_exists($this->getMigrationFileByVersion($version)) && $i <= 10) {
-			$version--;
+			(int)$version--;
+			$version = (string) $version;
 			$i++;
 		}
 
